@@ -14,14 +14,22 @@ export default () => {
             ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
             accumsan lacus vel facilisis.
           </p>
-          <a href="#" className="button inline-block hover:bg-blue-300" onclick="">
+          <a
+            href="#"
+            className="button inline-block hover:bg-blue-300"
+            onClick={() => {}}
+          >
             Download Lasers{" "}
             <FontAwesomeIcon
               className="px-2 hover:text-blue-200"
               icon={faFilePdf}
             />
           </a>
-          <a href="#" className="button inline-block hover:bg-blue-300" onclick="">
+          <a
+            href="#"
+            className="button inline-block hover:bg-blue-300"
+            onClick={() => {}}
+          >
             Activate Lasers
           </a>
         </div>

@@ -107,7 +107,7 @@ export default ({ children }) => {
               icon={faAngleLeft}
             />
             <span className="font-pixel uppercase">
-              Use A&amp;D or arrow keys to travel
+              Use arrow keys to travel
             </span>
             <FontAwesomeIcon
               className="px-4 hover:text-blue-200 cursor-pointer"

@@ -80,10 +80,14 @@ module.exports = {
         test: /\.css$/i,
         exclude: /node_modules/,
         include: path.resolve(__dirname, "src"),
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader"
+          {
+            loader: "file-loader"
+          }
         ]
       },
       {
