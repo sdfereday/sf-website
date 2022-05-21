@@ -4,9 +4,12 @@ import Phaser from "phaser";
 const GameShell = () => {
   var config = {
     type: Phaser.AUTO,
-    parent: 'gameRoot',
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    parent: "gameRoot",
     pixelArt: true,
-    width: 800,
+    backgroundColor: "#1f233c",
+    width: 1920,
     height: 600,
     scene: {
       preload: preload,
@@ -24,10 +27,14 @@ const GameShell = () => {
   function update() {}
 };
 
-export default () => {
+export default ({ children }) => {
   useEffect(() => {
     GameShell();
   }, []);
 
-  return <div id='gameRoot' />;
+  return (
+    <div id="gameRoot">
+      {children}
+    </div>
+  );
 };

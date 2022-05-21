@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       spacing: {
         '15': '3.75rem',
+        '17': '5rem',
         '128': '32rem',
         '144': '36rem',
       }
@@ -30,6 +31,10 @@ module.exports = {
       'blue': {
         100: '#0e93ff',
         200: '#1097d6',
+        300: '#0e5dff'
+      },
+      'white': {
+        100: '#f1f1f1'
       }
     },
   },

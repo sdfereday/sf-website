@@ -4,6 +4,9 @@
     "start": "webpack-dev-server --config ./webpack.config.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "phaser": "^3.55.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

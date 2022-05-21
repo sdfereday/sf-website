@@ -11,4 +11,48 @@
     body {
         @apply bg-slate-900;
     }
+
+    a,
+    svg {
+        @apply ease-linear duration-200;
+    }
+    h2,
+    h3 {
+        @apply text-4xl;
+        @apply pb-6;
+    }
+    h4,
+    h5,
+    h6 {
+        @apply text-2xl;
+        @apply pb-6;
+    }
+    p {
+        @apply text-xl;
+        @apply pb-6;
+    }
+    button, .button {
+        @apply block;
+        @apply p-2;
+        @apply mb-2;
+        @apply mr-2;
+        @apply rounded;
+        @apply bg-blue-200;
+    }
+}
+
+#gameRoot {
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+#gameRoot canvas {
+    display: block;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
