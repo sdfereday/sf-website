@@ -3,8 +3,12 @@ import Phaser from "phaser";
 import tiledMapJSON from "./assets/map.json";
 import tilesGraphic from "./assets/tiles.png";
 import playerGraphic from "./assets/player.png";
+import doorwayGraphic from "./assets/doorway.png";
 
-const GameShell = () => {
+const GameShell = ({
+  onArrowPressed = () => {},
+  onDoorwayEntered = () => {}
+}) => {
   const zoom = 4;
   const moveSpeed = 70;
   const jumpStrength = 160;
@@ -39,6 +43,8 @@ const GameShell = () => {
 
   let player;
   let cursors;
+  let rightDoorway;
+  let leftDoorway;
 
   function preload() {
     // To work out tiled application world size: n / tileSize / zoom (example: 600 / 8 / 4)
@@ -54,8 +60,8 @@ const GameShell = () => {
       frameHeight: 27
     });
 
-    // pickup
-    //this.load.image("pickup", "assets/pickup.png");
+    // other assets
+    this.load.image("doorway", doorwayGraphic);
   }
 
   function create() {
@@ -86,6 +92,7 @@ const GameShell = () => {
     );
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
+    player.setDepth(1);
 
     // small fix to our player images, we resize the physics body object slightly
     this.physics.add.collider(player, ground);
@@ -119,6 +126,25 @@ const GameShell = () => {
       frameRate: 16,
       repeat: -1
     });
+
+    // add other assets
+    rightDoorway = this.physics.add.staticSprite(
+      map.widthInPixels - 124,
+      map.heightInPixels - 24,
+      "doorway"
+    );
+
+    leftDoorway = this.physics.add.staticSprite(
+      124,
+      map.heightInPixels - 24,
+      "doorway"
+    );
+
+    rightDoorway.setDepth(0);
+    leftDoorway.setDepth(0);
+
+    this.physics.add.overlap(player, rightDoorway, () => onDoorwayEntered(1));
+    this.physics.add.overlap(player, leftDoorway, () => onDoorwayEntered(-1));
   }
 
   function update() {
@@ -126,10 +152,12 @@ const GameShell = () => {
       player.body.setVelocityX(-moveSpeed); // move left
       player.anims.play("walk", true); // play walk animation
       player.flipX = true; // flip the sprite to the left
+      onArrowPressed(-1);
     } else if (cursors.right.isDown) {
       player.body.setVelocityX(moveSpeed); // move right
       player.anims.play("walk", true); // play walk animatio
       player.flipX = false; // use the original sprite looking to the right
+      onArrowPressed(1);
     } else {
       player.body.setVelocityX(0);
       player.anims.play("idle", true);
@@ -137,9 +165,26 @@ const GameShell = () => {
   }
 };
 
-export default ({ children }) => {
+export default ({
+  children,
+  onArrowPressed = () => {},
+  onDoorwayEntered = () => {}
+}) => {
+  const onArrowPressedCb = dir => {
+    console.log(dir);
+    onArrowPressed(dir);
+  };
+
+  const onDoorwayEnteredCb = dir => {
+    console.log("Doorway entered:" + dir + ".");
+    onDoorwayEntered(dir);
+  };
+
   useEffect(() => {
-    GameShell();
+    GameShell({
+      onArrowPressed: onArrowPressedCb,
+      onDoorwayEntered: onDoorwayEnteredCb
+    });
   }, []);
 
   return (
