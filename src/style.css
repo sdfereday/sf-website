@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: VCR;
+    src: url("fonts/VCR_OSD_MONO_1.001.ttf");
+}
+
+@layer base {
+    body {
+        @apply bg-slate-900;
+    }
+}
