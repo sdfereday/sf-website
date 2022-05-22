@@ -24,6 +24,7 @@ const App = () => {
   const onPageChanged = pageIndex => setCurrentPage(pageIndex);
 
   /* Game Related */
+  const [interactActive, setInteractActive] = useState(false);
   const [currentDirection, setCurrentDirection] = useState(0);
   const [lastDoorway, setLastDoorway] = useState(0);
 
@@ -38,12 +39,14 @@ const App = () => {
     <UI
       currentPage={CurrentPage}
       currentDirection={currentDirection}
+      interactActive={interactActive}
       onPageChanged={onPageChanged}
     >
       <Game
         currentPage={CurrentPage}
         onArrowPressed={dir => setCurrentDirection(dir)}
         onDoorwayEntered={onDoorwayEntered}
+        onInteractPressed={() => setInteractActive(true)}
       >
         <Content currentPage={CurrentPage}>
           {Pages[CurrentPage]}

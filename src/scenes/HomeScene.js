@@ -1,10 +1,10 @@
-const checkOverlap = (spriteA, spriteB) => {
-  var boundsA = spriteA.getBounds();
-  var boundsB = spriteB.getBounds();
-  return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
-}
+import { overlaps } from "../physics-helpers";
 
-export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
+export default ({
+  onArrowPressed = () => {},
+  onInteractPressed = () => {},
+  onDoorwayEntered = () => {}
+}) => {
   const moveSpeed = 70;
   const jumpStrength = 160;
 
@@ -72,7 +72,7 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
         };
       }
     });
-    
+
     // create the player sprite
     player = this.physics.add.sprite(
       lastDoorwayEntered <= 0 ? startPoints.left.x : startPoints.right.x,
@@ -117,18 +117,36 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
 
     // add other assets
     rightDoorway = this.physics.add.staticSprite(
-      map.widthInPixels - 124,
-      map.heightInPixels - 24,
+      startPoints.right.x,
+      startPoints.right.y,
       "doorway"
     );
     rightDoorway.setDepth(0);
 
-    this.input.keyboard.on('keydown-E', function (event) {
-      if (checkOverlap(player, rightDoorway)) {
-        lastDoorwayEntered = lastDoorwayEntered === 1 ? -1 : 1;
-        onDoorwayEntered(lastDoorwayEntered);
-      }
-    });
+    this.input.keyboard.on(
+      "keydown-E",
+      function(event) {
+        const overlapsRightDoor = overlaps(
+          {
+            x1: player.x,
+            x2: player.x + player.width,
+            y1: player.y,
+            y2: player.y + player.height
+          },
+          {
+            x1: rightDoorway.x,
+            x2: rightDoorway.x + rightDoorway.width,
+            y1: rightDoorway.y,
+            y2: rightDoorway.y + rightDoorway.height
+          }
+        );
+
+        if (overlapsRightDoor) onDoorwayEntered(1);
+
+        onInteractPressed();
+      },
+      this
+    );
   }
 
   function update() {
@@ -150,7 +168,7 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
 
   return {
     key: "home",
-    init: props => { console.log(props)
+    init: props => {
       if (!props.hasOwnProperty("value")) {
         lastDoorwayEntered = -1;
         return;

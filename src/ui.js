@@ -79,7 +79,7 @@ export default ({
                       href="#"
                       className={isCurrentPage(
                         currentPage,
-                        "Home",
+                        0,
                         classes.navigation.link
                       )}
                       onClick={() => onPageChanged(0)}
@@ -92,7 +92,7 @@ export default ({
                       href="#"
                       className={isCurrentPage(
                         currentPage,
-                        "About",
+                        1,
                         classes.navigation.link
                       )}
                       onClick={() => onPageChanged(1)}
@@ -105,7 +105,7 @@ export default ({
                       href="#"
                       className={isCurrentPage(
                         currentPage,
-                        "Skills",
+                        2,
                         classes.navigation.link
                       )}
                       onClick={() => onPageChanged(2)}
@@ -118,7 +118,7 @@ export default ({
                       href="#"
                       className={isCurrentPage(
                         currentPage,
-                        "Projects",
+                        3,
                         classes.navigation.link
                       )}
                       onClick={() => onPageChanged(3)}
@@ -131,7 +131,7 @@ export default ({
                       href="#"
                       className={isCurrentPage(
                         currentPage,
-                        "Contact",
+                        4,
                         classes.navigation.link
                       )}
                       onClick={() => onPageChanged(4)}
@@ -150,14 +150,20 @@ export default ({
         <footer className="container mx-auto px-4 text-white-100 text-center">
           <p id="instruction" className="py-4">
             <FontAwesomeIcon
-              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === -1 ? 'text-blue-200' : 'text-white'}`}
+              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection ===
+              -1
+                ? "text-blue-200"
+                : "text-white"}`}
               icon={faAngleLeft}
             />
             <span className="font-pixel uppercase">
               Use arrow keys to travel &amp; 'e' to enter doors
             </span>
             <FontAwesomeIcon
-              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === 1 ? 'text-blue-200' : 'text-white'}`}
+              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection ===
+              1
+                ? "text-blue-200"
+                : "text-white"}`}
               icon={faAngleRight}
             />
           </p>

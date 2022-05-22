@@ -40,7 +40,8 @@ const GameShell = () => {
     "home",
     HomeScene({
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir)
+      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir),
+      onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
   );
@@ -49,7 +50,8 @@ const GameShell = () => {
     "about",
     AboutScene({
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir)
+      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir),
+      onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
   );
@@ -74,7 +76,8 @@ export default ({
   children,
   currentPage,
   onArrowPressed = () => {},
-  onDoorwayEntered = () => {}
+  onDoorwayEntered = () => {},
+  onInteractPressed = () => {}
 }) => {
   const [gameInstance] = store.useState("gameInstance");
   const [initialBoot, setInitialBoot] = useState(false);
@@ -83,6 +86,7 @@ export default ({
   useEffect(() => {
     gameInstance.bindEvent("arrowPressed", dir => onArrowPressed(dir));
     gameInstance.bindEvent("doorwayEntered", dir => onDoorwayEntered(dir));
+    gameInstance.bindEvent("interactPressed", () => onInteractPressed());
   }, []);
 
   useEffect(

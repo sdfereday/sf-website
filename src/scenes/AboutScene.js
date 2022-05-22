@@ -1,10 +1,6 @@
-const checkOverlap = (spriteA, spriteB) => {
-  var boundsA = spriteA.getBounds();
-  var boundsB = spriteB.getBounds();
-  return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
-}
+import { overlaps } from "../physics-helpers";
 
-export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
+export default ({ onArrowPressed = () => {}, onInteractPressed = () => {}, onDoorwayEntered = () => {} }) => {
   const moveSpeed = 70;
   const jumpStrength = 160;
 
@@ -118,29 +114,54 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
 
     // add other assets
     rightDoorway = this.physics.add.staticSprite(
-      map.widthInPixels - 124,
-      map.heightInPixels - 24,
+      startPoints.right.x,
+      startPoints.right.y,
       "doorway"
     );
     leftDoorway = this.physics.add.staticSprite(
-      124,
-      map.heightInPixels - 24,
+      startPoints.left.x,
+      startPoints.left.y,
       "doorway"
     );
 
     rightDoorway.setDepth(0);
     leftDoorway.setDepth(0);
 
-    this.input.keyboard.on('keydown-E', function (event) {
-      if (checkOverlap(player, leftDoorway)) {
-        lastDoorwayEntered = lastDoorwayEntered === 1 ? 1 : -1;
-        onDoorwayEntered(lastDoorwayEntered);
-      }
+    this.input.keyboard.on("keydown-E", function(event) {
+      const overlapsRightDoor = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: rightDoorway.x,
+          x2: rightDoorway.x + rightDoorway.width,
+          y1: rightDoorway.y,
+          y2: rightDoorway.y + rightDoorway.height
+        }
+      );
 
-      if (checkOverlap(player, rightDoorway)) {
-        lastDoorwayEntered = lastDoorwayEntered === 1 ? -1 : 1;
-        onDoorwayEntered(lastDoorwayEntered);
-      }
+      const overlapsLeftDoor = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: leftDoorway.x,
+          x2: leftDoorway.x + leftDoorway.width,
+          y1: leftDoorway.y,
+          y2: leftDoorway.y + leftDoorway.height
+        }
+      );
+
+      if (overlapsRightDoor || overlapsLeftDoor)
+        onDoorwayEntered(overlapsLeftDoor ? -1 : 1);
+
+      onInteractPressed();
     });
   }
 
@@ -163,12 +184,12 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
 
   return {
     key: "about",
-    init: props => { console.log(props)
+    init: props => {
       if (!props.hasOwnProperty("value")) {
         lastDoorwayEntered = -1;
         return;
       }
-      
+
       lastDoorwayEntered = props.value;
     },
     create: create,
