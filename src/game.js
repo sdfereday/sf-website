@@ -10,6 +10,7 @@ const GameShell = () => {
   const emitter = new Phaser.Events.EventEmitter();
 
   const scenes = ["home", "about"];
+  let lastScene = "home";
 
   const config = {
     type: Phaser.AUTO,
@@ -53,16 +54,14 @@ const GameShell = () => {
     false
   );
 
-  let lastScene = "home";
-
   // Note: Event names must match to emitters or nothing will call them
   return {
     bindEvent: (eventName, fn) => emitter.on(eventName, fn, game),
-    changeSceneByIndex: index => {
+    changeSceneByIndex: (index, props = {}) => {
       var theOtherScene = game.scene.getScene(lastScene);
       theOtherScene.scene.stop();
 
-      game.scene.start(scenes[index]);
+      game.scene.start(scenes[index], props);
       lastScene = scenes[index];
     }
   };
@@ -79,6 +78,7 @@ export default ({
 }) => {
   const [gameInstance] = store.useState("gameInstance");
   const [initialBoot, setInitialBoot] = useState(false);
+  const [lastPage, setLastPage] = useState(currentPage);
 
   useEffect(() => {
     gameInstance.bindEvent("arrowPressed", dir => onArrowPressed(dir));
@@ -90,8 +90,11 @@ export default ({
       if (!initialBoot) {
         setInitialBoot(true);
       } else {
-        gameInstance.changeSceneByIndex(currentPage);
+        gameInstance.changeSceneByIndex(currentPage, {
+          value: lastPage > currentPage ? 1 : -1
+        });
       }
+      setLastPage(currentPage);
     },
     [currentPage]
   );

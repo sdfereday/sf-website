@@ -154,7 +154,7 @@ export default ({
               icon={faAngleLeft}
             />
             <span className="font-pixel uppercase">
-              Use keyboard arrow keys to travel
+              Use arrow keys to travel &amp; 'e' to enter doors
             </span>
             <FontAwesomeIcon
               className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === 1 ? 'text-blue-200' : 'text-white'}`}

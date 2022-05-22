@@ -46,7 +46,6 @@ const App = () => {
         onDoorwayEntered={onDoorwayEntered}
       >
         <Content currentPage={CurrentPage}>
-          <h2>{CurrentPage}</h2>
           {Pages[CurrentPage]}
         </Content>
       </Game>
