@@ -10,7 +10,8 @@
     "phaser": "^3.55.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "state-pool": "^0.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",

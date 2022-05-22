@@ -1,8 +1,3 @@
-import tiledMapJSON from "../assets/map-about.json";
-import tilesGraphic from "../assets/tiles.png";
-import playerGraphic from "../assets/player.png";
-import doorwayGraphic from "../assets/doorway.png";
-
 export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
   const moveSpeed = 70;
   const jumpStrength = 160;
@@ -12,27 +7,9 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
   let rightDoorway;
   let leftDoorway;
 
-  function preload() {
-    // To work out tiled application world size: n / tileSize / zoom (example: 600 / 8 / 4)
-    // load in JSON data for tile placement
-    this.load.tilemapTiledJSON("tilemap", tiledMapJSON);
-
-    // must match tileset names below
-    this.load.image("base_tiles", tilesGraphic);
-
-    // player animations
-    this.load.spritesheet("player", playerGraphic, {
-      frameWidth: 16,
-      frameHeight: 27
-    });
-
-    // other assets
-    this.load.image("doorway", doorwayGraphic);
-  }
-
   function create() {
     // load the map (must match above)
-    const map = this.make.tilemap({ key: "tilemap" });
+    const map = this.make.tilemap({ key: "tilemap_about" });
 
     // must match tileset name in tiled application
     const tileset = map.addTilesetImage("base_tiles");
@@ -92,23 +69,6 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
       this
     );
 
-    // anims
-    this.anims.create({
-      key: "idle",
-      frames: this.anims.generateFrameNumbers("player", { frames: [0, 1] }),
-      frameRate: 4,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: "walk",
-      frames: this.anims.generateFrameNumbers("player", {
-        frames: [3, 4, 5, 6, 7]
-      }),
-      frameRate: 16,
-      repeat: -1
-    });
-
     // add other assets
     rightDoorway = this.physics.add.staticSprite(
       map.widthInPixels - 124,
@@ -159,7 +119,6 @@ export default ({ onArrowPressed = () => {}, onDoorwayEntered = () => {} }) => {
 
   return {
     key: "about",
-    preload: preload,
     create: create,
     update: update
   };
