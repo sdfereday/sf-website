@@ -9,21 +9,32 @@ import {
 
 const classes = {
   navigation: {
-    link: "block py-2 pr-4 text-white-100 hover:text-blue-200"
+    link: "block py-2 pr-4"
   }
 };
 
-export default ({ children }) => {
+const isCurrentPage = (compare, name, currentClass) =>
+  compare === name ? currentClass + ` ${"current"}` : currentClass;
+
+export default ({
+  children,
+  currentPage,
+  currentDirection,
+  onPageChanged = pageName => {}
+}) => {
   return (
-    <div>
+    <div className="ui-root">
       <div className="w-full border-b bg-[#1b1b1b] border-[#314454]">
         <header className="container mx-auto px-4">
           <h1 className="pt-12 pl-12">
-            <a className="text-blue-200 font-pixel uppercase text-6xl -ml-1" href="">
+            <a
+              className="text-blue-200 font-pixel uppercase text-6xl -ml-1"
+              href=""
+            >
               Sam Fereday
             </a>
           </h1>
-          <nav className="bg-white border-gray-200 pt-6 pb-12 pl-12 rounded dark:bg-gray-800">
+          <nav className="pt-6 pb-12 pl-12">
             <div className="container flex flex-wrap justify-between items-center mx-auto">
               <button
                 data-collapse-toggle="mobile-menu"
@@ -66,29 +77,65 @@ export default ({ children }) => {
                   <li>
                     <a
                       href="#"
-                      className={classes.navigation.link}
-                      aria-current="page"
+                      className={isCurrentPage(
+                        currentPage,
+                        "Home",
+                        classes.navigation.link
+                      )}
+                      onClick={() => onPageChanged("Home")}
                     >
                       Home
                     </a>
                   </li>
                   <li>
-                    <a href="#" className={classes.navigation.link}>
+                    <a
+                      href="#"
+                      className={isCurrentPage(
+                        currentPage,
+                        "About",
+                        classes.navigation.link
+                      )}
+                      onClick={() => onPageChanged("About")}
+                    >
                       About &amp; CV
                     </a>
                   </li>
                   <li>
-                    <a href="#" className={classes.navigation.link}>
+                    <a
+                      href="#"
+                      className={isCurrentPage(
+                        currentPage,
+                        "Skills",
+                        classes.navigation.link
+                      )}
+                      onClick={() => onPageChanged("Skills")}
+                    >
                       Skills &amp; Experience
                     </a>
                   </li>
                   <li>
-                    <a href="#" className={classes.navigation.link}>
+                    <a
+                      href="#"
+                      className={isCurrentPage(
+                        currentPage,
+                        "Projects",
+                        classes.navigation.link
+                      )}
+                      onClick={() => onPageChanged("Projects")}
+                    >
                       Projects &amp; Code
                     </a>
                   </li>
                   <li>
-                    <a href="#" className={classes.navigation.link}>
+                    <a
+                      href="#"
+                      className={isCurrentPage(
+                        currentPage,
+                        "Contact",
+                        classes.navigation.link
+                      )}
+                      onClick={() => onPageChanged("Contact")}
+                    >
                       Contact
                     </a>
                   </li>
@@ -103,14 +150,14 @@ export default ({ children }) => {
         <footer className="container mx-auto px-4 text-white-100 text-center">
           <p id="instruction" className="py-4">
             <FontAwesomeIcon
-              className="px-4 hover:text-blue-200 cursor-pointer"
+              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === -1 ? 'text-blue-200' : 'text-white'}`}
               icon={faAngleLeft}
             />
             <span className="font-pixel uppercase">
               Use arrow keys to travel
             </span>
             <FontAwesomeIcon
-              className="px-4 hover:text-blue-200 cursor-pointer"
+              className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === 1 ? 'text-blue-200' : 'text-white'}`}
               icon={faAngleRight}
             />
           </p>

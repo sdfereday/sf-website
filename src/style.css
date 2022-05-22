@@ -31,13 +31,23 @@
         @apply text-xl;
         @apply pb-6;
     }
-    button, .button {
+    button,
+    .button {
         @apply block;
         @apply p-2;
         @apply mb-2;
         @apply mr-2;
         @apply rounded;
         @apply bg-blue-200;
+    }
+    nav a {
+        @apply text-white-100;
+        @apply hover:text-blue-200;
+    }
+    .current a,
+    .current {
+        @apply text-blue-400;
+        @apply cursor-default;
     }
 }
 
@@ -49,4 +59,25 @@
 
 #gameRoot canvas {
     z-index: 1;
+}
+
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 450ms linear 250ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 150ms linear;
 }

@@ -110,6 +110,22 @@ const GameShell = ({
       this
     );
 
+    cursors.right.on(
+      "up",
+      function() {
+        onArrowPressed(0);
+      },
+      this
+    );
+
+    cursors.left.on(
+      "up",
+      function() {
+        onArrowPressed(0);
+      },
+      this
+    );
+
     // anims
     this.anims.create({
       key: "idle",
