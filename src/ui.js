@@ -20,7 +20,7 @@ export default ({
   children,
   currentPage,
   currentDirection,
-  onPageChanged = pageName => {}
+  onPageChanged = pageIndex => {}
 }) => {
   return (
     <div className="ui-root">
@@ -82,7 +82,7 @@ export default ({
                         "Home",
                         classes.navigation.link
                       )}
-                      onClick={() => onPageChanged("Home")}
+                      onClick={() => onPageChanged(0)}
                     >
                       Home
                     </a>
@@ -95,7 +95,7 @@ export default ({
                         "About",
                         classes.navigation.link
                       )}
-                      onClick={() => onPageChanged("About")}
+                      onClick={() => onPageChanged(1)}
                     >
                       About &amp; CV
                     </a>
@@ -108,7 +108,7 @@ export default ({
                         "Skills",
                         classes.navigation.link
                       )}
-                      onClick={() => onPageChanged("Skills")}
+                      onClick={() => onPageChanged(2)}
                     >
                       Skills &amp; Experience
                     </a>
@@ -121,7 +121,7 @@ export default ({
                         "Projects",
                         classes.navigation.link
                       )}
-                      onClick={() => onPageChanged("Projects")}
+                      onClick={() => onPageChanged(3)}
                     >
                       Projects &amp; Code
                     </a>
@@ -134,7 +134,7 @@ export default ({
                         "Contact",
                         classes.navigation.link
                       )}
-                      onClick={() => onPageChanged("Contact")}
+                      onClick={() => onPageChanged(4)}
                     >
                       Contact
                     </a>
@@ -154,7 +154,7 @@ export default ({
               icon={faAngleLeft}
             />
             <span className="font-pixel uppercase">
-              Use arrow keys to travel
+              Use keyboard arrow keys to travel
             </span>
             <FontAwesomeIcon
               className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection === 1 ? 'text-blue-200' : 'text-white'}`}
