@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -22,6 +22,13 @@ export default ({
   currentDirection,
   onPageChanged = pageIndex => {}
 }) => {
+
+  const [toggleMenu, setToggleMenu] = useState(false);
+
+  const onToggleMenu = () => {
+    setToggleMenu(!toggleMenu);
+  }
+
   return (
     <div className="ui-root">
       <div className="w-full border-b bg-[#1b1b1b] border-[#314454]">
@@ -39,14 +46,15 @@ export default ({
               <button
                 data-collapse-toggle="mobile-menu"
                 type="button"
-                className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
+                onClick={onToggleMenu}
               >
                 <span className="sr-only">Open main menu</span>
                 <svg
                   className="w-6 h-6"
-                  fill="currentColor"
+                  fill="white"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -58,7 +66,7 @@ export default ({
                 </svg>
                 <svg
                   className="hidden w-6 h-6"
-                  fill="currentColor"
+                  fill="white"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -70,7 +78,7 @@ export default ({
                 </svg>
               </button>
               <div
-                className="hidden w-full md:block md:w-auto"
+                className={`${toggleMenu ? 'hidden' : ''} w-full md:block md:w-auto`}
                 id="mobile-menu"
               >
                 <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium">

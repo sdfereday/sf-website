@@ -3,7 +3,7 @@ import React from "react";
 export default () => {
   return (
     <div>
-      <h2>Greetings!</h2>
+      <h2 className="text-6xl">Greetings!</h2>
       <p>
         I'm Sam, a front-end web developer specializing in React, with skills
         also ranging in Unity C#, Wordpress, [more to add].
