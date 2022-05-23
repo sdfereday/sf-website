@@ -48,7 +48,6 @@ const App = () => {
         onInteractPressed={() => setInteractActive(true)}
       >
         <Content currentPage={CurrentPage}>
-          {CurrentPage}
           {Pages[CurrentPage]}
         </Content>
       </Game>

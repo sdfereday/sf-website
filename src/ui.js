@@ -183,7 +183,7 @@ export default ({
             </dd>
             <dd>
               <a
-                href="www.linkedin.com/in/sam-fereday-bb4101229"
+                href="https://www.linkedin.com/in/sam-fereday-bb4101229"
                 target="_blank"
                 className="block hover:text-blue-200"
                 title="LinkedIn"

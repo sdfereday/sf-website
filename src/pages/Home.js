@@ -5,31 +5,17 @@ import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 export default () => {
   return (
     <div>
-      <h2>Home</h2>
+      <h2>Hello!</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
-        suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-        lacus vel facilisis.
+        I'm Sam, a front-end web developer specializing in React, with skills also ranging in Unity C#, Wordpress, [more to add].
       </p>
-      <a
-        href="#"
-        className="button inline-block hover:bg-blue-300"
-        onClick={() => {}}
-      >
-        Download Lasers{" "}
-        <FontAwesomeIcon
-          className="px-2 hover:text-blue-200"
-          icon={faFilePdf}
-        />
-      </a>
-      <a
+      {/* <a
         href="#"
         className="button inline-block hover:bg-blue-300"
         onClick={() => {}}
       >
         Activate Lasers
-      </a>
+      </a> */}
     </div>
   );
 };

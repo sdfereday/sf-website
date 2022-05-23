@@ -5,8 +5,9 @@ export default () => {
     <div>
       <h2>Skills &amp; Experience</h2>
       <p>
-        Text...
+        Here's a collection of places that I've worked over the years including the primary technologies used:
       </p>
+
     </div>
   );
 };
