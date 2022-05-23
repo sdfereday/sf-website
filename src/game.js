@@ -4,12 +4,15 @@ import Phaser from "phaser";
 import BootScene from "./scenes/Boot";
 import HomeScene from "./scenes/HomeScene";
 import AboutScene from "./scenes/AboutScene";
+import SkillsScene from "./scenes/SkillsScene";
+import ProjectsScene from "./scenes/ProjectsScene";
+import ContactScene from "./scenes/ContactScene";
 
 const GameShell = () => {
   const zoom = 4;
   const emitter = new Phaser.Events.EventEmitter();
 
-  const scenes = ["home", "about"];
+  const scenes = ["home", "about", "skills", "projects", "contact"];
   let lastScene = "home";
 
   const config = {
@@ -39,8 +42,9 @@ const GameShell = () => {
   game.scene.add(
     "home",
     HomeScene({
+      sceneIndex: 0,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir),
+      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -49,8 +53,42 @@ const GameShell = () => {
   game.scene.add(
     "about",
     AboutScene({
+      sceneIndex: 1,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: dir => emitter.emit("doorwayEntered", dir),
+      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onInteractPressed: () => emitter.emit("interactPressed")
+    }),
+    false
+  );
+
+  game.scene.add(
+    "skills",
+    SkillsScene({
+      sceneIndex: 2,
+      onArrowPressed: dir => emitter.emit("arrowPressed", dir),
+      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onInteractPressed: () => emitter.emit("interactPressed")
+    }),
+    false
+  );
+
+  game.scene.add(
+    "projects",
+    ProjectsScene({
+      sceneIndex: 3,
+      onArrowPressed: dir => emitter.emit("arrowPressed", dir),
+      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onInteractPressed: () => emitter.emit("interactPressed")
+    }),
+    false
+  );
+
+  game.scene.add(
+    "contact",
+    ContactScene({
+      sceneIndex: 4,
+      onArrowPressed: dir => emitter.emit("arrowPressed", dir),
+      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -85,7 +123,7 @@ export default ({
 
   useEffect(() => {
     gameInstance.bindEvent("arrowPressed", dir => onArrowPressed(dir));
-    gameInstance.bindEvent("doorwayEntered", dir => onDoorwayEntered(dir));
+    gameInstance.bindEvent("doorwayEntered", (dir, sceneIndex) => onDoorwayEntered(dir, sceneIndex));
     gameInstance.bindEvent("interactPressed", () => onInteractPressed());
   }, []);
 
@@ -94,8 +132,9 @@ export default ({
       if (!initialBoot) {
         setInitialBoot(true);
       } else {
+        const direction = lastPage > currentPage ? 1 : -1;
         gameInstance.changeSceneByIndex(currentPage, {
-          value: lastPage > currentPage ? 1 : -1
+          value: direction
         });
       }
       setLastPage(currentPage);

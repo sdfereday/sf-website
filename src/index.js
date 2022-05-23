@@ -1,6 +1,7 @@
 import "./style.css";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import { clamp } from "./number-helpers";
 import UI from "./ui";
 import Content from "./content";
 import Game from "./game";
@@ -28,11 +29,9 @@ const App = () => {
   const [currentDirection, setCurrentDirection] = useState(0);
   const [lastDoorway, setLastDoorway] = useState(0);
 
-  const onDoorwayEntered = dir => {
+  const onDoorwayEntered = (dir, sceneIndex) => {
     setLastDoorway(dir);
-
-    const index = CurrentPage + dir <= 0 ? 0 : CurrentPage + dir;
-    setCurrentPage(index);
+    onPageChanged(clamp(sceneIndex + dir, 0, 4));
   };
 
   return (
@@ -49,6 +48,7 @@ const App = () => {
         onInteractPressed={() => setInteractActive(true)}
       >
         <Content currentPage={CurrentPage}>
+          {CurrentPage}
           {Pages[CurrentPage]}
         </Content>
       </Game>

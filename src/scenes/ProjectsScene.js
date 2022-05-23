@@ -25,10 +25,11 @@ export default ({
   let player;
   let cursors;
   let rightDoorway;
+  let leftDoorway;
 
   function create() {
     // load the map (must match above)
-    const map = this.make.tilemap({ key: "tilemap_home" });
+    const map = this.make.tilemap({ key: "tilemap_projects" });
 
     // must match tileset name in tiled application
     const tileset = map.addTilesetImage("base_tiles");
@@ -122,32 +123,51 @@ export default ({
       startPoints.right.y,
       "doorway"
     );
-    rightDoorway.setDepth(0);
-
-    this.input.keyboard.on(
-      "keydown-E",
-      function(event) {
-        const overlapsRightDoor = overlaps(
-          {
-            x1: player.x,
-            x2: player.x + player.width,
-            y1: player.y,
-            y2: player.y + player.height
-          },
-          {
-            x1: rightDoorway.x,
-            x2: rightDoorway.x + rightDoorway.width,
-            y1: rightDoorway.y,
-            y2: rightDoorway.y + rightDoorway.height
-          }
-        );
-
-        if (overlapsRightDoor) onDoorwayEntered(1, sceneIndex);
-
-        onInteractPressed();
-      },
-      this
+    leftDoorway = this.physics.add.staticSprite(
+      startPoints.left.x,
+      startPoints.left.y,
+      "doorway"
     );
+
+    rightDoorway.setDepth(0);
+    leftDoorway.setDepth(0);
+
+    this.input.keyboard.on("keydown-E", function(event) {
+      const overlapsRightDoor = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: rightDoorway.x,
+          x2: rightDoorway.x + rightDoorway.width,
+          y1: rightDoorway.y,
+          y2: rightDoorway.y + rightDoorway.height
+        }
+      );
+
+      const overlapsLeftDoor = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: leftDoorway.x,
+          x2: leftDoorway.x + leftDoorway.width,
+          y1: leftDoorway.y,
+          y2: leftDoorway.y + leftDoorway.height
+        }
+      );
+
+      if (overlapsRightDoor || overlapsLeftDoor)
+        onDoorwayEntered(overlapsLeftDoor ? -1 : 1, sceneIndex);
+
+      onInteractPressed();
+    });
   }
 
   function update() {
@@ -168,7 +188,7 @@ export default ({
   }
 
   return {
-    key: "home",
+    key: "projects",
     init: props => {
       if (!props.hasOwnProperty("value")) {
         lastDoorwayEntered = -1;

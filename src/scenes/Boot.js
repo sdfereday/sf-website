@@ -6,12 +6,13 @@ import doorwayGraphic from "../assets/doorway.png";
 
 export default () => {
   function preload() {
-    console.log("Booting.");
-
     // To work out tiled application world size: n / tileSize / zoom (example: 600 / 8 / 4)
     // load in JSON data for tile placement
     this.load.tilemapTiledJSON("tilemap_home", tiledMapJSONHome);
     this.load.tilemapTiledJSON("tilemap_about", tiledMapJSONAbout);
+    this.load.tilemapTiledJSON("tilemap_skills", tiledMapJSONAbout);
+    this.load.tilemapTiledJSON("tilemap_projects", tiledMapJSONAbout);
+    this.load.tilemapTiledJSON("tilemap_contact", tiledMapJSONAbout);
 
     // must match tileset names below
     this.load.image("base_tiles", tilesGraphic);

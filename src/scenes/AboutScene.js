@@ -1,6 +1,11 @@
 import { overlaps } from "../physics-helpers";
 
-export default ({ onArrowPressed = () => {}, onInteractPressed = () => {}, onDoorwayEntered = () => {} }) => {
+export default ({
+  sceneIndex,
+  onArrowPressed = () => {},
+  onInteractPressed = () => {},
+  onDoorwayEntered = () => {}
+}) => {
   const moveSpeed = 70;
   const jumpStrength = 160;
 
@@ -159,7 +164,7 @@ export default ({ onArrowPressed = () => {}, onInteractPressed = () => {}, onDoo
       );
 
       if (overlapsRightDoor || overlapsLeftDoor)
-        onDoorwayEntered(overlapsLeftDoor ? -1 : 1);
+        onDoorwayEntered(overlapsLeftDoor ? -1 : 1, sceneIndex);
 
       onInteractPressed();
     });
