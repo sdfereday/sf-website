@@ -5,11 +5,12 @@ import { faEnvelope, faAddressCard } from "@fortawesome/free-solid-svg-icons";
 export default () => {
   return (
     <div>
-      <h2>Contact</h2>
+      <h2>Say Hello!</h2>
+      <p>I'm looking for new adventures in development and open to opportunities so please don't hesitate to get in touch!</p>
       <a
         href="#"
         target="_blank"
-        className="block hover:text-blue-200"
+        className="hover:text-blue-200"
         title="Email"
       >
         <FontAwesomeIcon
@@ -21,7 +22,7 @@ export default () => {
       <a
         href="https://www.linkedin.com/in/sam-fereday-bb4101229"
         target="_blank"
-        className="block hover:text-blue-200"
+        className="hover:text-blue-200"
         title="LinkedIn"
       >
         <FontAwesomeIcon

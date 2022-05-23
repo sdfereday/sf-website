@@ -1,24 +1,12 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
 export default () => {
   return (
     <div>
-      <h2>About &amp; CV</h2>
-      <p>With a bunch of experience picked up over the years from originally starting out making static HTML sites, I've advanced my knowledge over the years in Frontend development and moved towards specializing in React.</p>
-      <p>Whilst React is where it's at, you can also find me delving in to different technologies such as Unity C#, Wordpress, Git, [more needed]. Please feel free to download a copy of my CV for more details.</p>
-      <a
-        href="#"
-        className="button inline-block hover:bg-blue-300"
-        onClick={() => {}}
-      >
-        Download CV{" "}
-        <FontAwesomeIcon
-          className="px-2 hover:text-blue-200"
-          icon={faFilePdf}
-        />
-      </a>
+      <h2>Who Am I?</h2>
+      <p>I'm a Front-End developer in the UK with a big interest in development be it on the web or in games to ultimately provide a great user experience.</p>
+      <p>Eager to learn and a passion for overcoming challenges and problem solving. When I'm not writing code or being creative you'll find me practicing martial arts, adventuring outdoors or sitting peacefully reading a book.</p>
+      <p>Always on the lookout for taking my knowledge and skills to the next level, you'll never find me without a drive to learn new skills.</p>
     </div>
   );
 };
