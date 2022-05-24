@@ -68,6 +68,17 @@
     z-index: 1;
 }
 
+.tooltip {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 192px;
+    height: 72px;
+    padding: 1em;
+    text-align: center;
+    background-image: url('assets/tooltip.png');
+    background-repeat: no-repeat;
+}
+
 .fade-appear,
 .fade-enter {
     opacity: 0;

@@ -25,6 +25,9 @@ export default ({
   let player;
   let cursors;
   let rightDoorway;
+  let helperSprite;
+
+  let overlapsRightDoor = false;
 
   function create() {
     // load the map (must match above)
@@ -117,33 +120,32 @@ export default ({
     );
 
     // add other assets
+    helperSprite = this.add.sprite(player.x, player.y - 10, "exit");
+
+    this.tweens.add({
+      targets: helperSprite,
+      x: player.x,
+      y: player.y - 15,
+      duration: 300,
+      ease: "Sine.easeInOut",
+      yoyo: true,
+      repeat: -1
+    });
+
+    helperSprite.setDepth(10);
+    helperSprite.setVisible(false);
+
     rightDoorway = this.physics.add.staticSprite(
       startPoints.right.x,
-      startPoints.right.y,
-      "doorway"
+      startPoints.right.y - 13,
+      "homeEntranceGraphic"
     );
     rightDoorway.setDepth(0);
 
     this.input.keyboard.on(
       "keydown-E",
       function(event) {
-        const overlapsRightDoor = overlaps(
-          {
-            x1: player.x,
-            x2: player.x + player.width,
-            y1: player.y,
-            y2: player.y + player.height
-          },
-          {
-            x1: rightDoorway.x,
-            x2: rightDoorway.x + rightDoorway.width,
-            y1: rightDoorway.y,
-            y2: rightDoorway.y + rightDoorway.height
-          }
-        );
-
         if (overlapsRightDoor) onDoorwayEntered(1, sceneIndex);
-
         onInteractPressed();
       },
       this
@@ -164,6 +166,33 @@ export default ({
     } else {
       player.body.setVelocityX(0);
       player.anims.play("idle", true);
+    }
+
+    if (!player.body.blocked.down) {
+      player.anims.play(player.body.velocity.y > 0 ? "fall" : "jump", true);
+    }
+
+    // Detection
+    overlapsRightDoor = overlaps(
+      {
+        x1: player.x,
+        x2: player.x + player.width,
+        y1: player.y,
+        y2: player.y + player.height
+      },
+      {
+        x1: rightDoorway.x,
+        x2: rightDoorway.x + rightDoorway.width,
+        y1: rightDoorway.y,
+        y2: rightDoorway.y + rightDoorway.height
+      }
+    );
+
+    if (overlapsRightDoor) {
+      helperSprite.x = player.x;
+      helperSprite.setVisible(true);
+    } else {
+      helperSprite.setVisible(false);
     }
   }
 

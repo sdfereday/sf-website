@@ -1,8 +1,12 @@
 import tiledMapJSONHome from "../assets/map-home.json";
 import tiledMapJSONAbout from "../assets/map-about.json";
-import tilesGraphic from "../assets/tiles.png";
+import tilesGraphic from "../assets/environment_tiles.png";
 import playerGraphic from "../assets/player.png";
 import doorwayGraphic from "../assets/doorway.png";
+import homeEntranceGraphic from "../assets/home_entrance.png";
+import aboutEntranceGraphic from "../assets/about_entrance.png";
+import bookstackGraphic from "../assets/bookstack.png";
+import exitGraphic from "../assets/exit.png";
 
 export default () => {
   function preload() {
@@ -25,6 +29,10 @@ export default () => {
 
     // other assets
     this.load.image("doorway", doorwayGraphic);
+    this.load.image("homeEntranceGraphic", homeEntranceGraphic);
+    this.load.image("aboutEntranceGraphic", aboutEntranceGraphic);
+    this.load.image("bookstack", bookstackGraphic);
+    this.load.image("exit", exitGraphic);
   }
 
   function create() {
@@ -39,7 +47,25 @@ export default () => {
     this.anims.create({
       key: "walk",
       frames: this.anims.generateFrameNumbers("player", {
-        frames: [3, 4, 5, 6, 7]
+        frames: [3, 4, 5, 6, 7, 6, 5, 4]
+      }),
+      frameRate: 16,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "jump",
+      frames: this.anims.generateFrameNumbers("player", {
+        frames: [4]
+      }),
+      frameRate: 16,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "fall",
+      frames: this.anims.generateFrameNumbers("player", {
+        frames: [6]
       }),
       frameRate: 16,
       repeat: -1

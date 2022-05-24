@@ -8,6 +8,17 @@ import SkillsScene from "./scenes/SkillsScene";
 import ProjectsScene from "./scenes/ProjectsScene";
 import ContactScene from "./scenes/ContactScene";
 
+const GameTooltip = ({ x, y, children }) => {
+  return (
+    <div
+      className="tooltip font-pixel"
+      style={{ left: x + "px", top: y + "px" }}
+    >
+      {children}
+    </div>
+  );
+};
+
 const GameShell = () => {
   const zoom = 4;
   const emitter = new Phaser.Events.EventEmitter();
@@ -21,9 +32,9 @@ const GameShell = () => {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: "gameRoot",
     pixelArt: true,
-    backgroundColor: "#1f233c",
-    width: 1920 / zoom,
-    height: 600 / zoom,
+    backgroundColor: "#10141f", //"#1f233c",
+    width: 1920 / zoom, // 480
+    height: 600 / zoom, // 150
     zoom,
     physics: {
       default: "arcade",
@@ -44,7 +55,8 @@ const GameShell = () => {
     HomeScene({
       sceneIndex: 0,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onDoorwayEntered: (dir, index) =>
+        emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -55,7 +67,8 @@ const GameShell = () => {
     AboutScene({
       sceneIndex: 1,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onDoorwayEntered: (dir, index) =>
+        emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -66,7 +79,8 @@ const GameShell = () => {
     SkillsScene({
       sceneIndex: 2,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onDoorwayEntered: (dir, index) =>
+        emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -77,7 +91,8 @@ const GameShell = () => {
     ProjectsScene({
       sceneIndex: 3,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onDoorwayEntered: (dir, index) =>
+        emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -88,7 +103,8 @@ const GameShell = () => {
     ContactScene({
       sceneIndex: 4,
       onArrowPressed: dir => emitter.emit("arrowPressed", dir),
-      onDoorwayEntered: (dir, index) => emitter.emit("doorwayEntered", dir, index),
+      onDoorwayEntered: (dir, index) =>
+        emitter.emit("doorwayEntered", dir, index),
       onInteractPressed: () => emitter.emit("interactPressed")
     }),
     false
@@ -123,7 +139,9 @@ export default ({
 
   useEffect(() => {
     gameInstance.bindEvent("arrowPressed", dir => onArrowPressed(dir));
-    gameInstance.bindEvent("doorwayEntered", (dir, sceneIndex) => onDoorwayEntered(dir, sceneIndex));
+    gameInstance.bindEvent("doorwayEntered", (dir, sceneIndex) =>
+      onDoorwayEntered(dir, sceneIndex)
+    );
     gameInstance.bindEvent("interactPressed", () => onInteractPressed());
   }, []);
 

@@ -26,6 +26,10 @@ export default ({
   let cursors;
   let rightDoorway;
   let leftDoorway;
+  let helperSprite;
+
+  let overlapsLeftDoor = false;
+  let overlapsRightDoor = false;
 
   function create() {
     // load the map (must match above)
@@ -118,6 +122,21 @@ export default ({
     );
 
     // add other assets
+    helperSprite = this.add.sprite(player.x, player.y - 10, "exit");
+
+    this.tweens.add({
+      targets: helperSprite,
+      x: player.x,
+      y: player.y - 15,
+      duration: 300,
+      ease: "Sine.easeInOut",
+      yoyo: true,
+      repeat: -1
+    });
+
+    helperSprite.setDepth(10);
+    helperSprite.setVisible(false);
+
     rightDoorway = this.physics.add.staticSprite(
       startPoints.right.x,
       startPoints.right.y,
@@ -133,36 +152,6 @@ export default ({
     leftDoorway.setDepth(0);
 
     this.input.keyboard.on("keydown-E", function(event) {
-      const overlapsRightDoor = overlaps(
-        {
-          x1: player.x,
-          x2: player.x + player.width,
-          y1: player.y,
-          y2: player.y + player.height
-        },
-        {
-          x1: rightDoorway.x,
-          x2: rightDoorway.x + rightDoorway.width,
-          y1: rightDoorway.y,
-          y2: rightDoorway.y + rightDoorway.height
-        }
-      );
-
-      const overlapsLeftDoor = overlaps(
-        {
-          x1: player.x,
-          x2: player.x + player.width,
-          y1: player.y,
-          y2: player.y + player.height
-        },
-        {
-          x1: leftDoorway.x,
-          x2: leftDoorway.x + leftDoorway.width,
-          y1: leftDoorway.y,
-          y2: leftDoorway.y + leftDoorway.height
-        }
-      );
-
       if (overlapsRightDoor || overlapsLeftDoor)
         onDoorwayEntered(overlapsLeftDoor ? -1 : 1, sceneIndex);
 
@@ -184,6 +173,47 @@ export default ({
     } else {
       player.body.setVelocityX(0);
       player.anims.play("idle", true);
+    }
+
+    if (!player.body.blocked.down) {
+      player.anims.play(player.body.velocity.y > 0 ? "fall" : "jump", true);
+    }
+
+    overlapsRightDoor = overlaps(
+      {
+        x1: player.x,
+        x2: player.x + player.width,
+        y1: player.y,
+        y2: player.y + player.height
+      },
+      {
+        x1: rightDoorway.x,
+        x2: rightDoorway.x + rightDoorway.width,
+        y1: rightDoorway.y,
+        y2: rightDoorway.y + rightDoorway.height
+      }
+    );
+
+    overlapsLeftDoor = overlaps(
+      {
+        x1: player.x,
+        x2: player.x + player.width,
+        y1: player.y,
+        y2: player.y + player.height
+      },
+      {
+        x1: leftDoorway.x,
+        x2: leftDoorway.x + leftDoorway.width,
+        y1: leftDoorway.y,
+        y2: leftDoorway.y + leftDoorway.height
+      }
+    );
+
+    if (overlapsRightDoor || overlapsLeftDoor) {
+      helperSprite.x = player.x;
+      helperSprite.setVisible(true);
+    } else {
+      helperSprite.setVisible(false);
     }
   }
 

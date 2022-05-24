@@ -185,6 +185,10 @@ export default ({
       player.body.setVelocityX(0);
       player.anims.play("idle", true);
     }
+
+    if (!player.body.blocked.down) {
+      player.anims.play(player.body.velocity.y > 0 ? "fall" : "jump", true);
+    }
   }
 
   return {
