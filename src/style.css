@@ -49,10 +49,17 @@
         @apply text-blue-400;
         @apply cursor-default;
     }
+    canvas {
+        @apply hidden;
+        @apply md:block;
+    }
+    #instruction {
+        @apply hidden;
+        @apply md:block;
+    }
 }
 
 #gameRoot {
-    min-height: 600px;
     position: relative;
     overflow: hidden;
 }

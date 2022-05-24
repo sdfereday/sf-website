@@ -34,20 +34,25 @@ export default ({
     <div className="ui-root">
       <div className="w-full border-b bg-[#1b1b1b] border-[#314454]">
         <header className="container mx-auto px-4">
-          <h1 className="pt-12 pl-12">
+          <h1 className="pt-12 pl-12-lg pl-4">
             <a
-              className="text-blue-200 font-pixel uppercase text-6xl -ml-1"
-              href=""
+              href="#"
+              className={`text-blue-200 font-pixel uppercase text-6xl -ml-1 ${isCurrentPage(
+                currentPage,
+                0,
+                classes.navigation.link
+              )}`}
+              onClick={() => onPageChanged(0)}
             >
               Sam Fereday
             </a>
           </h1>
-          <nav className="pt-6 pb-12 pl-12">
+          <nav className="pt-6 pb-12 pl-12-lg pl-4">
             <div className="container flex flex-wrap justify-between items-center mx-auto">
               <button
                 data-collapse-toggle="mobile-menu"
                 type="button"
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 text-sm text-gray-500 bg-blue-100 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 onClick={onToggleMenu}
@@ -158,8 +163,8 @@ export default ({
       </div>
       {children}
       <div className="w-full pb-4">
-        <footer className="container mx-auto px-4 text-white-100 text-center">
-          <p id="instruction" className="py-4">
+        <footer className="container mx-auto px-4 py-8 md:py-0 text-white-100 text-center">
+          <p id="instruction" className="py-4 md:py-0 md:pb-4">
             <FontAwesomeIcon
               className={`px-4 hover:text-blue-200 cursor-pointer ${currentDirection ===
               -1
@@ -178,7 +183,7 @@ export default ({
               icon={faAngleRight}
             />
           </p>
-          <dl className="flex flex-col md:flex-row justify-center">
+          <dl className="flex flex-row justify-center">
             <dd>
               <Email
                 email="sdfereday.website@gmail.com"

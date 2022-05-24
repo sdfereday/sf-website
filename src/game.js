@@ -143,7 +143,7 @@ export default ({
   );
 
   return (
-    <div id="gameRoot">
+    <div id="gameRoot" className="md:h-[600px]">
       {children}
     </div>
   );

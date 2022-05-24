@@ -9,7 +9,7 @@ import { Email } from "react-obfuscate-email";
 
 export default () => {
   return (
-    <div className="pt-32 max-w-4xl">
+    <div className="lg:pt-32 pt-6 pb-6 max-w-4xl">
       <h2>Say Hello!</h2>
       <p>
         I'm looking for new adventures in development and open to opportunities
