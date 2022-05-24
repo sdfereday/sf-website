@@ -14,10 +14,8 @@ export default ({ children, currentPage }) => {
       <TransitionGroup className="transition-group">
         <CSSTransition key={currentPage} timeout={500} classNames="fade">
           <div className="absolute z-10 w-full top-0">
-            <div className="container mx-auto px-16 pt-32 text-white-100">
-              <div className="max-w-4xl">
-                {children}
-              </div>
+            <div className="container mx-auto px-16 text-white-100">
+              {children}
             </div>
           </div>
         </CSSTransition>

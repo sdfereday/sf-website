@@ -1,24 +1,29 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faAddressCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faAddressCard,
+  faCode
+} from "@fortawesome/free-solid-svg-icons";
+import { Email } from "react-obfuscate-email";
 
 export default () => {
   return (
-    <div>
+    <div className="pt-32 max-w-4xl">
       <h2>Say Hello!</h2>
-      <p>I'm looking for new adventures in development and open to opportunities so please don't hesitate to get in touch!</p>
-      <a
-        href="#"
-        target="_blank"
+      <p>
+        I'm looking for new adventures in development and open to opportunities
+        so please don't hesitate to get in touch!
+      </p>
+      <Email
+        email="sdfereday.website@gmail.com"
         className="hover:text-blue-200"
-        title="Email"
       >
         <FontAwesomeIcon
-          className="px-2 hover:text-blue-200"
+          className="px-1 hover:text-blue-200"
           icon={faEnvelope}
-        />{" "}
-        Email
-      </a>
+        />Email
+      </Email>
       <a
         href="https://www.linkedin.com/in/sam-fereday-bb4101229"
         target="_blank"
@@ -26,10 +31,19 @@ export default () => {
         title="LinkedIn"
       >
         <FontAwesomeIcon
-          className="px-2 hover:text-blue-200"
+          className="px-1 pl-4 hover:text-blue-200"
           icon={faAddressCard}
         />{" "}
         LinkedIn
+      </a>
+      <a
+        href="https://github.com/sdfereday"
+        target="_blank"
+        className="hover:text-blue-200"
+        title="Github"
+      >
+        <FontAwesomeIcon className="px-1 pl-3 hover:text-blue-200" icon={faCode} />{" "}
+      GitHub
       </a>
     </div>
   );

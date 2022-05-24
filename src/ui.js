@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Email } from "react-obfuscate-email";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
   faAngleRight,
   faEnvelope,
-  faAddressCard
+  faAddressCard,
+  faCode
 } from "@fortawesome/free-solid-svg-icons";
 
 const classes = {
@@ -22,12 +24,11 @@ export default ({
   currentDirection,
   onPageChanged = pageIndex => {}
 }) => {
-
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const onToggleMenu = () => {
     setToggleMenu(!toggleMenu);
-  }
+  };
 
   return (
     <div className="ui-root">
@@ -78,7 +79,9 @@ export default ({
                 </svg>
               </button>
               <div
-                className={`${toggleMenu ? 'hidden' : ''} w-full md:block md:w-auto`}
+                className={`${toggleMenu
+                  ? "hidden"
+                  : ""} w-full md:block md:w-auto`}
                 id="mobile-menu"
               >
                 <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium">
@@ -105,7 +108,7 @@ export default ({
                       )}
                       onClick={() => onPageChanged(1)}
                     >
-                      About &amp; CV
+                      About
                     </a>
                   </li>
                   <li>
@@ -118,7 +121,7 @@ export default ({
                       )}
                       onClick={() => onPageChanged(2)}
                     >
-                      Skills &amp; Experience
+                      Experience
                     </a>
                   </li>
                   <li>
@@ -177,15 +180,26 @@ export default ({
           </p>
           <dl className="flex flex-col md:flex-row justify-center">
             <dd>
-              <a
-                href="#"
-                target="_blank"
-                className="block hover:text-blue-200"
-                title="Email"
+              <Email
+                email="sdfereday.website@gmail.com"
+                className="hover:text-blue-200"
               >
                 <FontAwesomeIcon
                   className="px-2 hover:text-blue-200"
                   icon={faEnvelope}
+                />
+              </Email>
+            </dd>
+            <dd>
+              <a
+                href="https://github.com/sdfereday"
+                target="_blank"
+                className="block hover:text-blue-200"
+                title="Github"
+              >
+                <FontAwesomeIcon
+                  className="px-2 hover:text-blue-200"
+                  icon={faCode}
                 />
               </a>
             </dd>

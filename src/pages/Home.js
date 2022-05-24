@@ -2,19 +2,12 @@ import React from "react";
 
 export default () => {
   return (
-    <div>
+    <div className="pt-32 max-w-4xl">
       <h2 className="text-6xl">Greetings!</h2>
       <p>
         I'm Sam, a front-end web developer specializing in React, with skills
-        also ranging in Unity C#, Wordpress, [more to add].
+        also ranging in Strapi, Mithril, Backbone, Tailwind, Bootstrap, Unity C#, Wordpress &amp; Umbraco.
       </p>
-      {/* <a
-        href="#"
-        className="button inline-block hover:bg-blue-300"
-        onClick={() => {}}
-      >
-        Activate Lasers
-      </a> */}
     </div>
   );
 };
