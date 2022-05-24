@@ -122,6 +122,9 @@ export default ({
     );
 
     // add other assets
+    const aboutEntranceGraphic = this.add.sprite(240, 108, "aboutEntranceGraphic");
+    aboutEntranceGraphic.setDepth(0);
+
     helperSprite = this.add.sprite(player.x, player.y - 10, "exit");
 
     this.tweens.add({

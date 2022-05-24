@@ -32,7 +32,7 @@ export default ({
 
   return (
     <div className="ui-root">
-      <div className="w-full border-b bg-[#1b1b1b] border-[#314454]">
+      <div className="w-full border-b border-[#314454]">
         <header className="container mx-auto px-4">
           <h1 className="pt-12 pl-12-lg pl-4">
             <a
