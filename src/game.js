@@ -15,6 +15,7 @@ const GameShell = () => {
   const game = new Phaser.Game(config);
 
   // shared variables
+  let currentSceneData = null;
   let currentSceneIndex = 0;
   let lastScene = "home";
   let player;
@@ -26,7 +27,8 @@ const GameShell = () => {
 
   // shared methods
   const onSceneCreation = sceneData => {
-    sceneData.scene.cameras.main.fadeIn(500);
+    currentSceneData = sceneData.scene;
+    currentSceneData.cameras.main.fadeIn(customConfig.sceneFadeDuration);
     player = sceneData.player;
     leftDoorway = sceneData.leftDoorway;
     rightDoorway = sceneData.rightDoorway;
@@ -181,11 +183,20 @@ const GameShell = () => {
   return {
     bindEvent: (eventName, fn) => emitter.on(eventName, fn, game),
     changeSceneByIndex: (index, props = {}) => {
-      var theOtherScene = game.scene.getScene(lastScene);
-      theOtherScene.scene.stop();
-
-      game.scene.start(scenes[index], props);
-      lastScene = scenes[index];
+      if (currentSceneData !== null) {
+        currentSceneData.cameras.main.fadeOut(customConfig.sceneFadeDuration);
+        currentSceneData.cameras.main.once("camerafadeoutcomplete", function(
+          camera
+        ) {
+          game.scene.getScene(lastScene).scene.stop();
+          game.scene.start(scenes[index], props);
+          lastScene = scenes[index];
+        });
+      } else {
+        game.scene.getScene(lastScene).scene.stop();
+        game.scene.start(scenes[index], props);
+        lastScene = scenes[index];
+      }
     }
   };
 };

@@ -24,7 +24,8 @@ export const config = {
 
 export const customConfig = {
   moveSpeed: 70,
-  jumpStrength: 160
+  jumpStrength: 160,
+  sceneFadeDuration: 200
 };
 
 export const scenes = ["home", "about", "skills", "projects", "contact"];
