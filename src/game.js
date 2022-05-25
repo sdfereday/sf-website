@@ -26,6 +26,7 @@ const GameShell = () => {
 
   // shared methods
   const onSceneCreation = sceneData => {
+    sceneData.scene.cameras.main.fadeIn(500);
     player = sceneData.player;
     leftDoorway = sceneData.leftDoorway;
     rightDoorway = sceneData.rightDoorway;
