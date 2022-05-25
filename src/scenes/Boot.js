@@ -1,12 +1,19 @@
 import tiledMapJSONHome from "../assets/map-home.json";
 import tiledMapJSONAbout from "../assets/map-about.json";
+import tiledMapJSONExperience from "../assets/map-experience.json";
+import tiledMapJSONProjects from "../assets/map-projects.json";
+import tiledMapJSONContact from "../assets/map-contact.json";
 import tilesGraphic from "../assets/environment_tiles.png";
 import playerGraphic from "../assets/player.png";
 import doorwayGraphic from "../assets/doorway.png";
 import homeEntranceGraphic from "../assets/home_entrance.png";
 import aboutEntranceGraphic from "../assets/about_entrance.png";
+import experienceEntranceGraphic from "../assets/experience_entrance.png";
+import projectsEntranceGraphic from "../assets/projects_entrance.png";
+import contactEntranceGraphic from "../assets/contact_entrance.png";
 import bookstackGraphic from "../assets/bookstack.png";
 import exitGraphic from "../assets/exit.png";
+import interactGraphic from "../assets/interact.png";
 
 export default () => {
   function preload() {
@@ -14,9 +21,9 @@ export default () => {
     // load in JSON data for tile placement
     this.load.tilemapTiledJSON("tilemap_home", tiledMapJSONHome);
     this.load.tilemapTiledJSON("tilemap_about", tiledMapJSONAbout);
-    this.load.tilemapTiledJSON("tilemap_skills", tiledMapJSONAbout);
-    this.load.tilemapTiledJSON("tilemap_projects", tiledMapJSONAbout);
-    this.load.tilemapTiledJSON("tilemap_contact", tiledMapJSONAbout);
+    this.load.tilemapTiledJSON("tilemap_skills", tiledMapJSONExperience);
+    this.load.tilemapTiledJSON("tilemap_projects", tiledMapJSONProjects);
+    this.load.tilemapTiledJSON("tilemap_contact", tiledMapJSONContact);
 
     // must match tileset names below
     this.load.image("base_tiles", tilesGraphic);
@@ -31,8 +38,12 @@ export default () => {
     this.load.image("doorway", doorwayGraphic);
     this.load.image("homeEntranceGraphic", homeEntranceGraphic);
     this.load.image("aboutEntranceGraphic", aboutEntranceGraphic);
+    this.load.image("experienceEntranceGraphic", experienceEntranceGraphic);
+    this.load.image("projectsEntranceGraphic", projectsEntranceGraphic);
+    this.load.image("contactEntranceGraphic", contactEntranceGraphic);
     this.load.image("bookstack", bookstackGraphic);
     this.load.image("exit", exitGraphic);
+    this.load.image("interact", interactGraphic);
   }
 
   function create() {

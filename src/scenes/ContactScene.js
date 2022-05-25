@@ -117,6 +117,9 @@ export default ({
     );
 
     // add other assets
+    const aboutEntranceGraphic = this.add.sprite(240, 100, "contactEntranceGraphic");
+    aboutEntranceGraphic.setDepth(0);
+
     leftDoorway = this.physics.add.staticSprite(
       startPoints.left.x,
       startPoints.left.y,

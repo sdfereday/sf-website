@@ -8,17 +8,6 @@ import SkillsScene from "./scenes/SkillsScene";
 import ProjectsScene from "./scenes/ProjectsScene";
 import ContactScene from "./scenes/ContactScene";
 
-const GameTooltip = ({ x, y, children }) => {
-  return (
-    <div
-      className="tooltip font-pixel"
-      style={{ left: x + "px", top: y + "px" }}
-    >
-      {children}
-    </div>
-  );
-};
-
 const GameShell = () => {
   const zoom = 4;
   const emitter = new Phaser.Events.EventEmitter();

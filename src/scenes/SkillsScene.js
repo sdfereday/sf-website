@@ -118,6 +118,9 @@ export default ({
     );
 
     // add other assets
+    const aboutEntranceGraphic = this.add.sprite(240, 94, "experienceEntranceGraphic");
+    aboutEntranceGraphic.setDepth(0);
+
     rightDoorway = this.physics.add.staticSprite(
       startPoints.right.x,
       startPoints.right.y,

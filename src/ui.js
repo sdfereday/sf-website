@@ -37,7 +37,7 @@ export default ({
           <h1 className="pt-12 pl-12-lg pl-4">
             <a
               href="#"
-              className={`text-blue-200 uppercase text-4xl -ml-1 ${isCurrentPage(
+              className={`inline-block text-blue-200 uppercase text-4xl -ml-1 ${isCurrentPage(
                 currentPage,
                 0,
                 classes.navigation.link
