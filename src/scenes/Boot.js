@@ -15,7 +15,12 @@ import bookstackGraphic from "../assets/bookstack.png";
 import exitGraphic from "../assets/exit.png";
 import interactGraphic from "../assets/interact.png";
 
-export default () => {
+export default ({
+  onBootCreation = () => {},
+  onJumpPressed = () => {},
+  onArrowPressed = () => {},
+  onInteractPressed = () => {}
+}) => {
   function preload() {
     // To work out tiled application world size: n / tileSize / zoom (example: 600 / 8 / 4)
     // load in JSON data for tile placement
@@ -82,7 +87,55 @@ export default () => {
       repeat: -1
     });
 
-    this.scene.start("home");
+    // bindings
+    const cursors = this.input.keyboard.createCursorKeys();
+
+    cursors.up.on(
+      "down",
+      function() {
+        onJumpPressed();
+      },
+      this
+    );
+
+    cursors.right.on(
+      "up",
+      function() {
+        onArrowPressed(0);
+      },
+      this
+    );
+
+    cursors.left.on(
+      "up",
+      function() {
+        onArrowPressed(0);
+      },
+      this
+    );
+
+    this.input.keyboard.on(
+      "keydown-E",
+      function(event) {
+        onInteractPressed();
+      },
+      this
+    );
+
+    // on created
+    onBootCreation({
+      cursors,
+      startPoints: {
+        left: {
+          x: 0,
+          y: 0
+        },
+        right: {
+          x: 0,
+          y: 0
+        }
+      }
+    });
   }
 
   return {
