@@ -3,11 +3,10 @@ import { generateStartPointFromTiles, prepareTileMap } from "../map-helpers";
 
 export default ({
   sceneIndex,
+  sceneKey,
   onSceneCreation = () => {},
   onSceneUpdate = () => {}
 }) => {
-  const sceneKey = "home";
-
   let lastDoorwayEntered = 0;
 
   function create() {
@@ -54,10 +53,6 @@ export default ({
     rightDoorway.setDepth(0);
 
     const leftDoorway = null;
-    // const leftDoorway = this.add.sprite(0, 0, "doorway");
-    // leftDoorway.x = leftStart.x;
-    // leftDoorway.y = leftStart.y;
-    // leftDoorway.setDepth(0);
 
     // external event
     onSceneCreation({
@@ -71,7 +66,7 @@ export default ({
   }
 
   return {
-    key: "home",
+    key: sceneKey,
     init: props => {
       if (!props.hasOwnProperty("value")) {
         lastDoorwayEntered = -1;

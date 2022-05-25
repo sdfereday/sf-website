@@ -2,7 +2,7 @@ import React from "react";
 
 export default () => {
   return (
-    <div className="lg:pt-32 lg:pb-0 pt-6 pb-6 max-w-4xl">
+    <div className="lg:pt-48 lg:pb-0 pt-6 pb-6 max-w-4xl">
       <h2 className="text-6xl">Greetings!</h2>
       <p>
         I'm Sam, a front-end web developer specializing in React, with skills

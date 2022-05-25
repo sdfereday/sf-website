@@ -102,6 +102,7 @@ const GameShell = () => {
   game.scene.add(
     "home",
     HomeScene({
+      sceneKey: "home",
       sceneIndex: 0,
       onSceneCreation,
       onSceneUpdate
@@ -112,6 +113,7 @@ const GameShell = () => {
   game.scene.add(
     "about",
     AboutScene({
+      sceneKey: "about",
       sceneIndex: 1,
       onSceneCreation,
       onSceneUpdate
@@ -122,6 +124,7 @@ const GameShell = () => {
   game.scene.add(
     "skills",
     SkillsScene({
+      sceneKey: "skills",
       sceneIndex: 2,
       onSceneCreation,
       onSceneUpdate
@@ -132,6 +135,7 @@ const GameShell = () => {
   game.scene.add(
     "projects",
     ProjectsScene({
+      sceneKey: "projects",
       sceneIndex: 3,
       onSceneCreation,
       onSceneUpdate
@@ -142,6 +146,7 @@ const GameShell = () => {
   game.scene.add(
     "contact",
     ContactScene({
+      sceneKey: "contact",
       sceneIndex: 4,
       onSceneCreation,
       onSceneUpdate
