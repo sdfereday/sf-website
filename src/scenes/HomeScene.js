@@ -17,7 +17,7 @@ export default ({
     // set up start positioning
     const leftStart = generateStartPointFromTiles(
       {
-        x: map.widthInPixels / 2,
+        x: map.widthInPixels / 4,
         y: 125
       },
       positioning,
