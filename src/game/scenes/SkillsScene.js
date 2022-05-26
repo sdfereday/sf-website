@@ -1,7 +1,9 @@
 import Player from "../Player";
+import Chest from "../Chest";
 import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
 import {
   DOORWAY,
+  CHEST,
   LEFT_START,
   RIGHT_START,
   SKILLS_ENTRANCE,
@@ -52,6 +54,9 @@ export default ({
     // add map specific assets for this map
     this.add.sprite(240, 94, SKILLS_ENTRANCE).setDepth(0);
 
+    const chest = new Chest(this, 240, 136);
+    this.physics.add.collider(chest, ground);
+
     const rightDoorway = this.add.sprite(0, 0, DOORWAY);
     rightDoorway.x = rightStart.x;
     rightDoorway.y = rightStart.y;
@@ -66,6 +71,7 @@ export default ({
     onSceneCreation({
       scene: this,
       player,
+      chest,
       rightDoorway,
       leftDoorway,
       sceneIndex,

@@ -1,11 +1,17 @@
 import Player from "../Player";
-import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
+import FinalDoor from "../FinalDoor";
+import {
+  generateStartPointFromTiles,
+  prepareTileMap
+} from "../../system/helpers";
 import {
   CONTACT_ENTRANCE,
   DOORWAY,
   LEFT_START,
   RIGHT_START,
-  TILEMAP_CONTACT
+  TILEMAP_CONTACT,
+  TORCH,
+  TORCH_IDLE
 } from "../../system/consts";
 
 export default ({
@@ -15,6 +21,7 @@ export default ({
   onSceneUpdate = () => {}
 }) => {
   let lastDoorwayEntered = 0;
+  let playerHasKey = false;
 
   function create() {
     // prepare tilemap for use in this scene
@@ -49,8 +56,7 @@ export default ({
 
     this.physics.add.collider(player, ground);
 
-    // add map specific assets for this map
-    this.add.sprite(240, 100, CONTACT_ENTRANCE).setDepth(0);
+    const finalDoor = new FinalDoor(this, 168, 65);
 
     const rightDoorway = null;
 
@@ -59,10 +65,23 @@ export default ({
     leftDoorway.y = leftStart.y;
     leftDoorway.setDepth(0);
 
+    this.add
+      .sprite(197, 124, TORCH)
+      .setFrame(2)
+      .anims.play(TORCH_IDLE)
+      .setOrigin(0.5, 1);
+
+    this.add
+      .sprite(278, 124, TORCH)
+      .setFrame(0)
+      .anims.play(TORCH_IDLE)
+      .setOrigin(0.5, 1);
+
     // external event
     onSceneCreation({
       scene: this,
       player,
+      finalDoor,
       rightDoorway,
       leftDoorway,
       sceneIndex,
@@ -73,6 +92,9 @@ export default ({
   return {
     key: sceneKey,
     init: props => {
+      if (props.hasOwnProperty("playerHasKey"))
+        playerHasKey = props.playerHasKey;
+
       if (!props.hasOwnProperty("value")) {
         lastDoorwayEntered = -1;
         return;

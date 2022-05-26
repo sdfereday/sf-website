@@ -26,7 +26,9 @@ export const GameEvents = {
   ARROW_PRESSED: "arrowPressed",
   DOORWAY_ENTERED: "doorwayEntered",
   INTERACT_PRESSED: "interactPressed",
-  CAMERA_FADED_OUT: "camerafadeoutcomplete"
+  CAMERA_FADED_OUT: "camerafadeoutcomplete",
+  CHEST_OPENED: "chestOpened",
+  FINAL_DOOR_OPENED: "finalDoorOpened"
 };
 export const InputEvents = {
   UP: "up",
@@ -63,15 +65,20 @@ export const HOME_BACKGROUND = "homeBackground";
 export const ABOUT_ENTRANCE = "aboutEntranceGraphic";
 export const SKILLS_ENTRANCE = "experienceEntranceGraphic";
 export const PROJECTS_ENTRANCE = "projectsEntranceGraphic";
-export const CONTACT_ENTRANCE = "contactEntranceGraphic";
+export const CONTACT_ENTRANCE = "contactEntrance";
 export const BOOKSTACK = "bookstack";
 export const INTERACT_ICON = "interact";
+export const CHEST = "chest";
+export const KEY = "key";
+export const TORCH = "torch";
 
 /* Animations */
 export const WALK = "walk";
 export const IDLE = "idle";
 export const FALL = "fall";
 export const JUMP = "jump";
+export const VICTORY = "victory";
+export const TORCH_IDLE = "torchIdle";
 
 /* Transitions */
 export const SINE_EASEINOUT = "Sine.easeInOut";

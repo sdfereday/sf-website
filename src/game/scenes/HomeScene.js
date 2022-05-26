@@ -1,11 +1,16 @@
 import Player from "../Player";
-import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
+import {
+  generateStartPointFromTiles,
+  prepareTileMap
+} from "../../system/helpers";
 import {
   DOORWAY,
   HOME_BACKGROUND,
   LEFT_START,
   RIGHT_START,
-  TILEMAP_HOME
+  TILEMAP_HOME,
+  TORCH,
+  TORCH_IDLE
 } from "../../system/consts";
 
 export default ({
@@ -18,9 +23,7 @@ export default ({
 
   function create() {
     // add backgrounds first
-    this.add.image(0, 0, HOME_BACKGROUND)
-      .setOrigin(0, 0)
-      .setDepth(0);
+    this.add.image(0, 0, HOME_BACKGROUND).setOrigin(0, 0).setDepth(0);
 
     // prepare tilemap for use in this scene
     const { map, layers } = prepareTileMap(TILEMAP_HOME, this);
@@ -61,6 +64,18 @@ export default ({
     rightDoorway.setDepth(0);
 
     const leftDoorway = null;
+
+    this.add
+      .sprite(293, 125, TORCH)
+      .setFrame(2)
+      .anims.play(TORCH_IDLE)
+      .setOrigin(0.5, 1);
+      
+    this.add
+      .sprite(340, 127, TORCH)
+      .setFrame(0)
+      .anims.play(TORCH_IDLE)
+      .setOrigin(0.5, 1);
 
     // external event
     onSceneCreation({

@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import React, { useEffect, useState } from "react";
 import { createStore } from "state-pool";
-import { systemConfig, gameConfig } from "../system/config";
+import { systemConfig } from "../system/config";
 import { overlaps } from "../system/helpers";
 import BootScene from "./scenes/Boot";
 import HomeScene from "./scenes/HomeScene";
@@ -41,8 +41,14 @@ const GameShell = () => {
   let cursors;
   let leftDoorway = null;
   let rightDoorway = null;
+  let chest = null;
+  let finalDoor = null;
   let overlapsLeftDoorway = false;
   let overlapsRightDoorway = false;
+  let overlapsChest = false;
+  let overlapsFinalDoor = false;
+  let playerHasKey = false;
+  let playerOpenedDoor = false;
 
   // shared methods
   const onSceneCreation = sceneData => {
@@ -52,6 +58,11 @@ const GameShell = () => {
     leftDoorway = sceneData.leftDoorway;
     rightDoorway = sceneData.rightDoorway;
     currentSceneIndex = sceneData.sceneIndex;
+    chest = sceneData.chest;
+    finalDoor = sceneData.finalDoor;
+
+    if (chest && playerHasKey) chest.open();
+    if (finalDoor && playerOpenedDoor) finalDoor.open();
   };
 
   const onSceneUpdate = () => {
@@ -102,20 +113,72 @@ const GameShell = () => {
         }
       );
 
-    player.showHelper = overlapsLeftDoorway || overlapsRightDoorway;
-  };
+    if (chest) {
+      overlapsChest = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: chest.x,
+          x2: chest.x + chest.width,
+          y1: chest.y,
+          y2: chest.y + chest.height
+        }
+      );
+    }
 
-  const onJumpPressed = () => {
-    if (player.body.blocked.down) {
-      player.body.setVelocityY(-gameConfig.jumpStrength);
+    if (finalDoor) {
+      overlapsFinalDoor = overlaps(
+        {
+          x1: player.x,
+          x2: player.x + player.width,
+          y1: player.y,
+          y2: player.y + player.height
+        },
+        {
+          x1: finalDoor.x,
+          x2: finalDoor.x + finalDoor.width,
+          y1: finalDoor.y,
+          y2: finalDoor.y + finalDoor.height
+        }
+      );
+    }
+
+    if (overlapsLeftDoorway || overlapsRightDoorway) {
+      player.showExitHelper();
+    } else if (overlapsChest && !playerHasKey) {
+      player.showInteractionHelper();
+    } else if (overlapsFinalDoor && playerHasKey) {
+      player.showInteractionHelper();
+    } else {
+      player.hideHelper();
     }
   };
+
+  const onJumpPressed = () => player.jump();
 
   const onInteractPressed = () => {
     if (overlapsLeftDoorway)
       emitter.emit(GameEvents.DOORWAY_ENTERED, -1, currentSceneIndex);
     if (overlapsRightDoorway)
       emitter.emit(GameEvents.DOORWAY_ENTERED, 1, currentSceneIndex);
+
+    if (overlapsChest && !playerHasKey) {
+      emitter.emit(GameEvents.CHEST_OPENED);
+      playerHasKey = true;
+      chest.open();
+      player.findKey();
+    }
+
+    if (overlapsFinalDoor && playerHasKey) {
+      emitter.emit(GameEvents.FINAL_DOOR_OPENED);
+      playerOpenedDoor = true;
+      finalDoor.open();
+      player.victory();
+    }
 
     emitter.emit(GameEvents.INTERACT_PRESSED);
   };
@@ -213,10 +276,17 @@ const GameShell = () => {
         currentSceneData.cameras.main.fadeOut(SCENE_TRANSITION_DURATION);
         currentSceneData.cameras.main.once(
           GameEvents.CAMERA_FADED_OUT,
-          () => (lastScene = onReadyNextScene(index, lastScene, props))
+          () =>
+            (lastScene = onReadyNextScene(index, lastScene, {
+              ...props,
+              playerHasKey
+            }))
         );
       } else {
-        lastScene = onReadyNextScene(index, lastScene, props);
+        lastScene = onReadyNextScene(index, lastScene, {
+          ...props,
+          playerHasKey
+        });
       }
     }
   };
