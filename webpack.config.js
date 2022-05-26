@@ -17,8 +17,8 @@ process.env.NODE_ENV = "development";
 
 module.exports = {
   // Environment mode
-  //mode: "production",
-  mode: "development",
+  mode: "production",
+  //mode: "development",
 
   // Entry point of app
   entry: resolveAppPath("src"),
@@ -109,7 +109,8 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: resolveAppPath("public/index.html")
+      template: resolveAppPath("public/index.html"),
+      favicon: resolveAppPath("public/favicon.ico")
     })
   ]
 };
