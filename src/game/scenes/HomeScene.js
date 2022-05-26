@@ -2,7 +2,7 @@ import Player from "../Player";
 import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
 import {
   DOORWAY,
-  HOME_ENTRANCE,
+  HOME_BACKGROUND,
   LEFT_START,
   RIGHT_START,
   TILEMAP_HOME
@@ -17,6 +17,11 @@ export default ({
   let lastDoorwayEntered = 0;
 
   function create() {
+    // add backgrounds first
+    this.add.image(0, 0, HOME_BACKGROUND)
+      .setOrigin(0, 0)
+      .setDepth(0);
+
     // prepare tilemap for use in this scene
     const { map, layers } = prepareTileMap(TILEMAP_HOME, this);
     const { positioning, ground } = layers;
@@ -50,10 +55,6 @@ export default ({
     this.physics.add.collider(player, ground);
 
     // add map specific assets for this map
-    this.add
-      .sprite(rightStart.x - 3, rightStart.y - 6, HOME_ENTRANCE)
-      .setDepth(0);
-
     const rightDoorway = this.add.sprite(0, 0, DOORWAY);
     rightDoorway.x = rightStart.x;
     rightDoorway.y = rightStart.y;

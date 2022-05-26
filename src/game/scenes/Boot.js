@@ -6,7 +6,7 @@ import tiledMapJSONContact from "../../assets/map-contact.json";
 import tilesGraphic from "../../assets/environment_tiles.png";
 import playerGraphic from "../../assets/player.png";
 import doorwayGraphic from "../../assets/doorway.png";
-import homeEntranceGraphic from "../../assets/home_entrance.png";
+import homeBackground from "../../assets/home_background.png";
 import aboutEntranceGraphic from "../../assets/about_entrance.png";
 import experienceEntranceGraphic from "../../assets/experience_entrance.png";
 import projectsEntranceGraphic from "../../assets/projects_entrance.png";
@@ -26,7 +26,7 @@ import {
   TILEMAP_SKILLS,
   TILEMAP_PROJECTS,
   TILEMAP_CONTACT,
-  HOME_ENTRANCE,
+  HOME_BACKGROUND,
   ABOUT_ENTRANCE,
   SKILLS_ENTRANCE,
   PROJECTS_ENTRANCE,
@@ -64,7 +64,7 @@ export default ({
     });
 
     // other assets
-    this.load.image(HOME_ENTRANCE, homeEntranceGraphic);
+    this.load.image(HOME_BACKGROUND, homeBackground);
     this.load.image(ABOUT_ENTRANCE, aboutEntranceGraphic);
     this.load.image(SKILLS_ENTRANCE, experienceEntranceGraphic);
     this.load.image(PROJECTS_ENTRANCE, projectsEntranceGraphic);
