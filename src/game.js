@@ -1,23 +1,42 @@
+import Phaser from "phaser";
 import React, { useEffect, useState } from "react";
 import { createStore } from "state-pool";
-import Phaser from "phaser";
-import { config, customConfig, scenes } from "./config";
-import { overlaps } from "./physics-helpers";
+import { systemConfig, gameConfig } from "./config";
+import { overlaps } from "./helpers";
 import BootScene from "./scenes/Boot";
 import HomeScene from "./scenes/HomeScene";
 import AboutScene from "./scenes/AboutScene";
 import SkillsScene from "./scenes/SkillsScene";
 import ProjectsScene from "./scenes/ProjectsScene";
 import ContactScene from "./scenes/ContactScene";
+import {
+  LEFT,
+  RIGHT,
+  SCENE_TRANSITION_DURATION,
+  SCENEKEYS,
+  BOOTKEY,
+  HOMEKEY,
+  HOMEINDEX,
+  ABOUTKEY,
+  ABOUTINDEX,
+  SKILLSKEY,
+  SKILLSINDEX,
+  PROJECTSKEY,
+  PROJECTSINDEX,
+  CONTACTKEY,
+  CONTACTINDEX,
+  GAME_INSTANCE_KEY,
+  GameEvents
+} from "./consts";
 
 const GameShell = () => {
   const emitter = new Phaser.Events.EventEmitter();
-  const game = new Phaser.Game(config);
+  const game = new Phaser.Game(systemConfig);
 
   // shared variables
   let currentSceneData = null;
-  let currentSceneIndex = 0;
-  let lastScene = "home";
+  let currentSceneIndex = HOMEINDEX;
+  let lastScene = HOMEKEY;
   let player;
   let cursors;
   let leftDoorway = null;
@@ -28,7 +47,7 @@ const GameShell = () => {
   // shared methods
   const onSceneCreation = sceneData => {
     currentSceneData = sceneData.scene;
-    currentSceneData.cameras.main.fadeIn(customConfig.sceneFadeDuration);
+    currentSceneData.cameras.main.fadeIn(SCENE_TRANSITION_DURATION);
     player = sceneData.player;
     leftDoorway = sceneData.leftDoorway;
     rightDoorway = sceneData.rightDoorway;
@@ -41,10 +60,10 @@ const GameShell = () => {
 
     if (cursors.left.isDown) {
       player.moveLeft();
-      emitter.emit("arrowPressed", -1);
+      emitter.emit(GameEvents.ARROW_PRESSED, LEFT);
     } else if (cursors.right.isDown) {
       player.moveRight();
-      emitter.emit("arrowPressed", 1);
+      emitter.emit(GameEvents.ARROW_PRESSED, RIGHT);
     } else {
       player.idle();
     }
@@ -88,25 +107,31 @@ const GameShell = () => {
 
   const onJumpPressed = () => {
     if (player.body.blocked.down) {
-      player.body.setVelocityY(-customConfig.jumpStrength);
+      player.body.setVelocityY(-gameConfig.jumpStrength);
     }
   };
 
   const onInteractPressed = () => {
     if (overlapsLeftDoorway)
-      emitter.emit("doorwayEntered", -1, currentSceneIndex);
+      emitter.emit(GameEvents.DOORWAY_ENTERED, -1, currentSceneIndex);
     if (overlapsRightDoorway)
-      emitter.emit("doorwayEntered", 1, currentSceneIndex);
+      emitter.emit(GameEvents.DOORWAY_ENTERED, 1, currentSceneIndex);
 
-    emitter.emit("interactPressed");
+    emitter.emit(GameEvents.INTERACT_PRESSED);
+  };
+
+  const onReadyNextScene = (index, previousScene, props) => {
+    game.scene.getScene(previousScene).scene.stop();
+    game.scene.start(SCENEKEYS[index], props);
+    return SCENEKEYS[index];
   };
 
   // level scenes
   game.scene.add(
-    "home",
+    HOMEKEY,
     HomeScene({
-      sceneKey: "home",
-      sceneIndex: 0,
+      sceneKey: HOMEKEY,
+      sceneIndex: HOMEINDEX,
       onSceneCreation,
       onSceneUpdate
     }),
@@ -114,10 +139,10 @@ const GameShell = () => {
   );
 
   game.scene.add(
-    "about",
+    ABOUTKEY,
     AboutScene({
-      sceneKey: "about",
-      sceneIndex: 1,
+      sceneKey: ABOUTKEY,
+      sceneIndex: ABOUTINDEX,
       onSceneCreation,
       onSceneUpdate
     }),
@@ -125,10 +150,10 @@ const GameShell = () => {
   );
 
   game.scene.add(
-    "skills",
+    SKILLSKEY,
     SkillsScene({
-      sceneKey: "skills",
-      sceneIndex: 2,
+      sceneKey: SKILLSKEY,
+      sceneIndex: SKILLSINDEX,
       onSceneCreation,
       onSceneUpdate
     }),
@@ -136,10 +161,10 @@ const GameShell = () => {
   );
 
   game.scene.add(
-    "projects",
+    PROJECTSKEY,
     ProjectsScene({
-      sceneKey: "projects",
-      sceneIndex: 3,
+      sceneKey: PROJECTSKEY,
+      sceneIndex: PROJECTSINDEX,
       onSceneCreation,
       onSceneUpdate
     }),
@@ -147,10 +172,10 @@ const GameShell = () => {
   );
 
   game.scene.add(
-    "contact",
+    CONTACTKEY,
     ContactScene({
-      sceneKey: "contact",
-      sceneIndex: 4,
+      sceneKey: CONTACTKEY,
+      sceneIndex: CONTACTINDEX,
       onSceneCreation,
       onSceneUpdate
     }),
@@ -159,9 +184,10 @@ const GameShell = () => {
 
   // boot scene area
   game.scene.add(
-    "boot",
+    BOOTKEY,
     BootScene({
-      onArrowPressed: dir => emitter.emit("arrowPressed", dir),
+      sceneKey: BOOTKEY,
+      onArrowPressed: dir => emitter.emit(GameEvents.ARROW_PRESSED, dir),
       onJumpPressed,
       onInteractPressed,
       onBootCreation: bootProps => {
@@ -170,7 +196,7 @@ const GameShell = () => {
         leftDoorway = bootProps.leftDoorway;
         rightDoorway = bootProps.rightDoorway;
 
-        game.scene.start("home", {
+        game.scene.start(HOMEKEY, {
           game,
           ...bootProps
         });
@@ -184,25 +210,20 @@ const GameShell = () => {
     bindEvent: (eventName, fn) => emitter.on(eventName, fn, game),
     changeSceneByIndex: (index, props = {}) => {
       if (currentSceneData !== null) {
-        currentSceneData.cameras.main.fadeOut(customConfig.sceneFadeDuration);
-        currentSceneData.cameras.main.once("camerafadeoutcomplete", function(
-          camera
-        ) {
-          game.scene.getScene(lastScene).scene.stop();
-          game.scene.start(scenes[index], props);
-          lastScene = scenes[index];
-        });
+        currentSceneData.cameras.main.fadeOut(SCENE_TRANSITION_DURATION);
+        currentSceneData.cameras.main.once(
+          GameEvents.CAMERA_FADED_OUT,
+          () => (lastScene = onReadyNextScene(index, lastScene, props))
+        );
       } else {
-        game.scene.getScene(lastScene).scene.stop();
-        game.scene.start(scenes[index], props);
-        lastScene = scenes[index];
+        lastScene = onReadyNextScene(index, lastScene, props);
       }
     }
   };
 };
 
 const store = createStore();
-store.setState("gameInstance", GameShell());
+store.setState(GAME_INSTANCE_KEY, GameShell());
 
 export default ({
   children,
@@ -211,16 +232,20 @@ export default ({
   onDoorwayEntered = () => {},
   onInteractPressed = () => {}
 }) => {
-  const [gameInstance] = store.useState("gameInstance");
+  const [gameInstance] = store.useState(GAME_INSTANCE_KEY);
   const [initialBoot, setInitialBoot] = useState(false);
   const [lastPage, setLastPage] = useState(currentPage);
 
   useEffect(() => {
-    gameInstance.bindEvent("arrowPressed", dir => onArrowPressed(dir));
-    gameInstance.bindEvent("doorwayEntered", (dir, sceneIndex) =>
+    gameInstance.bindEvent(GameEvents.ARROW_PRESSED, dir =>
+      onArrowPressed(dir)
+    );
+    gameInstance.bindEvent(GameEvents.DOORWAY_ENTERED, (dir, sceneIndex) =>
       onDoorwayEntered(dir, sceneIndex)
     );
-    gameInstance.bindEvent("interactPressed", () => onInteractPressed());
+    gameInstance.bindEvent(GameEvents.INTERACT_PRESSED, () =>
+      onInteractPressed()
+    );
   }, []);
 
   useEffect(
@@ -228,7 +253,7 @@ export default ({
       if (!initialBoot) {
         setInitialBoot(true);
       } else {
-        const direction = lastPage > currentPage ? 1 : -1;
+        const direction = lastPage > currentPage ? RIGHT : LEFT;
         gameInstance.changeSceneByIndex(currentPage, {
           value: direction
         });

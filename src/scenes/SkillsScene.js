@@ -1,5 +1,12 @@
 import Player from "../Player";
-import { generateStartPointFromTiles, prepareTileMap } from "../map-helpers";
+import { generateStartPointFromTiles, prepareTileMap } from "../helpers";
+import {
+  DOORWAY,
+  LEFT_START,
+  RIGHT_START,
+  SKILLS_ENTRANCE,
+  TILEMAP_SKILLS
+} from "../consts";
 
 export default ({
   sceneIndex,
@@ -11,7 +18,7 @@ export default ({
 
   function create() {
     // prepare tilemap for use in this scene
-    const { map, layers } = prepareTileMap("tilemap_skills", this);
+    const { map, layers } = prepareTileMap(TILEMAP_SKILLS, this);
     const { positioning, ground } = layers;
 
     // set up start positioning
@@ -21,7 +28,7 @@ export default ({
         y: 125
       },
       positioning,
-      "leftStart"
+      LEFT_START
     );
 
     const rightStart = generateStartPointFromTiles(
@@ -30,7 +37,7 @@ export default ({
         y: 125
       },
       positioning,
-      "rightStart"
+      RIGHT_START
     );
 
     // create a new player instance and enable collisions
@@ -43,16 +50,14 @@ export default ({
     this.physics.add.collider(player, ground);
 
     // add map specific assets for this map
-    this.add
-      .sprite(240, 94, "experienceEntranceGraphic")
-      .setDepth(0);
+    this.add.sprite(240, 94, SKILLS_ENTRANCE).setDepth(0);
 
-    const rightDoorway = this.add.sprite(0, 0, "doorway");
+    const rightDoorway = this.add.sprite(0, 0, DOORWAY);
     rightDoorway.x = rightStart.x;
     rightDoorway.y = rightStart.y;
     rightDoorway.setDepth(0);
 
-    const leftDoorway = this.add.sprite(0, 0, "doorway");
+    const leftDoorway = this.add.sprite(0, 0, DOORWAY);
     leftDoorway.x = leftStart.x;
     leftDoorway.y = leftStart.y;
     leftDoorway.setDepth(0);
@@ -82,4 +87,3 @@ export default ({
     update: () => onSceneUpdate()
   };
 };
-

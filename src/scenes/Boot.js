@@ -14,8 +14,32 @@ import contactEntranceGraphic from "../assets/contact_entrance.png";
 import bookstackGraphic from "../assets/bookstack.png";
 import exitGraphic from "../assets/exit.png";
 import interactGraphic from "../assets/interact.png";
+import {
+  BASE_TILES,
+  PLAYER,
+  WALK,
+  IDLE,
+  FALL,
+  JUMP,
+  TILEMAP_HOME,
+  TILEMAP_ABOUT,
+  TILEMAP_SKILLS,
+  TILEMAP_PROJECTS,
+  TILEMAP_CONTACT,
+  HOME_ENTRANCE,
+  ABOUT_ENTRANCE,
+  SKILLS_ENTRANCE,
+  PROJECTS_ENTRANCE,
+  CONTACT_ENTRANCE,
+  EXIT,
+  DOORWAY,
+  BOOKSTACK,
+  INTERACT_ICON,
+  InputEvents
+} from "../consts";
 
 export default ({
+  sceneKey,
   onBootCreation = () => {},
   onJumpPressed = () => {},
   onArrowPressed = () => {},
@@ -24,45 +48,45 @@ export default ({
   function preload() {
     // To work out tiled application world size: n / tileSize / zoom (example: 600 / 8 / 4)
     // load in JSON data for tile placement
-    this.load.tilemapTiledJSON("tilemap_home", tiledMapJSONHome);
-    this.load.tilemapTiledJSON("tilemap_about", tiledMapJSONAbout);
-    this.load.tilemapTiledJSON("tilemap_skills", tiledMapJSONExperience);
-    this.load.tilemapTiledJSON("tilemap_projects", tiledMapJSONProjects);
-    this.load.tilemapTiledJSON("tilemap_contact", tiledMapJSONContact);
+    this.load.tilemapTiledJSON(TILEMAP_HOME, tiledMapJSONHome);
+    this.load.tilemapTiledJSON(TILEMAP_ABOUT, tiledMapJSONAbout);
+    this.load.tilemapTiledJSON(TILEMAP_SKILLS, tiledMapJSONExperience);
+    this.load.tilemapTiledJSON(TILEMAP_PROJECTS, tiledMapJSONProjects);
+    this.load.tilemapTiledJSON(TILEMAP_CONTACT, tiledMapJSONContact);
 
     // must match tileset names below
-    this.load.image("base_tiles", tilesGraphic);
+    this.load.image(BASE_TILES, tilesGraphic);
 
     // player animations
-    this.load.spritesheet("player", playerGraphic, {
+    this.load.spritesheet(PLAYER, playerGraphic, {
       frameWidth: 16,
       frameHeight: 27
     });
 
     // other assets
-    this.load.image("doorway", doorwayGraphic);
-    this.load.image("homeEntranceGraphic", homeEntranceGraphic);
-    this.load.image("aboutEntranceGraphic", aboutEntranceGraphic);
-    this.load.image("experienceEntranceGraphic", experienceEntranceGraphic);
-    this.load.image("projectsEntranceGraphic", projectsEntranceGraphic);
-    this.load.image("contactEntranceGraphic", contactEntranceGraphic);
-    this.load.image("bookstack", bookstackGraphic);
-    this.load.image("exit", exitGraphic);
-    this.load.image("interact", interactGraphic);
+    this.load.image(HOME_ENTRANCE, homeEntranceGraphic);
+    this.load.image(ABOUT_ENTRANCE, aboutEntranceGraphic);
+    this.load.image(SKILLS_ENTRANCE, experienceEntranceGraphic);
+    this.load.image(PROJECTS_ENTRANCE, projectsEntranceGraphic);
+    this.load.image(CONTACT_ENTRANCE, contactEntranceGraphic);
+    this.load.image(DOORWAY, doorwayGraphic);
+    this.load.image(BOOKSTACK, bookstackGraphic);
+    this.load.image(EXIT, exitGraphic);
+    this.load.image(INTERACT_ICON, interactGraphic);
   }
 
   function create() {
     // anims
     this.anims.create({
-      key: "idle",
-      frames: this.anims.generateFrameNumbers("player", { frames: [0, 1] }),
+      key: IDLE,
+      frames: this.anims.generateFrameNumbers(PLAYER, { frames: [0, 1] }),
       frameRate: 4,
       repeat: -1
     });
 
     this.anims.create({
-      key: "walk",
-      frames: this.anims.generateFrameNumbers("player", {
+      key: WALK,
+      frames: this.anims.generateFrameNumbers(PLAYER, {
         frames: [3, 4, 5, 6, 7, 6, 5, 4]
       }),
       frameRate: 16,
@@ -70,8 +94,8 @@ export default ({
     });
 
     this.anims.create({
-      key: "jump",
-      frames: this.anims.generateFrameNumbers("player", {
+      key: JUMP,
+      frames: this.anims.generateFrameNumbers(PLAYER, {
         frames: [4]
       }),
       frameRate: 16,
@@ -79,8 +103,8 @@ export default ({
     });
 
     this.anims.create({
-      key: "fall",
-      frames: this.anims.generateFrameNumbers("player", {
+      key: FALL,
+      frames: this.anims.generateFrameNumbers(PLAYER, {
         frames: [6]
       }),
       frameRate: 16,
@@ -91,7 +115,7 @@ export default ({
     const cursors = this.input.keyboard.createCursorKeys();
 
     cursors.up.on(
-      "down",
+      InputEvents.DOWN,
       function() {
         onJumpPressed();
       },
@@ -99,7 +123,7 @@ export default ({
     );
 
     cursors.right.on(
-      "up",
+      InputEvents.UP,
       function() {
         onArrowPressed(0);
       },
@@ -107,7 +131,7 @@ export default ({
     );
 
     cursors.left.on(
-      "up",
+      InputEvents.UP,
       function() {
         onArrowPressed(0);
       },
@@ -115,7 +139,7 @@ export default ({
     );
 
     this.input.keyboard.on(
-      "keydown-E",
+      InputEvents.INTERACT_KEY,
       function(event) {
         onInteractPressed();
       },
@@ -139,7 +163,7 @@ export default ({
   }
 
   return {
-    key: "boot",
+    key: sceneKey,
     preload: preload,
     create: create
   };

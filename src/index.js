@@ -1,38 +1,24 @@
 import "./style.css";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { clamp } from "./number-helpers";
+import { clamp } from "./helpers";
 import UI from "./ui";
 import Content from "./content";
 import Game from "./game";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Skills from "./pages/Skills";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-
-const Pages = {
-  [0]: <Home />,
-  [1]: <About />,
-  [2]: <Skills />,
-  [3]: <Projects />,
-  [4]: <Contact />
-};
+import Pages from "./page-data";
 
 const App = () => {
   /* UI Related */
   const [CurrentPage, setCurrentPage] = useState(0);
+  const { pageComponent } = Pages[CurrentPage];
   const onPageChanged = pageIndex => setCurrentPage(pageIndex);
 
   /* Game Related */
   const [interactActive, setInteractActive] = useState(false);
   const [currentDirection, setCurrentDirection] = useState(0);
-  const [lastDoorway, setLastDoorway] = useState(0);
 
-  const onDoorwayEntered = (dir, sceneIndex) => {
-    setLastDoorway(dir);
-    onPageChanged(clamp(sceneIndex + dir, 0, 4));
-  };
+  const onDoorwayEntered = (dir, sceneIndex) =>
+    onPageChanged(clamp(sceneIndex + dir, 0, Pages.length - 1));
 
   return (
     <UI
@@ -48,7 +34,7 @@ const App = () => {
         onInteractPressed={() => setInteractActive(true)}
       >
         <Content currentPage={CurrentPage}>
-          {Pages[CurrentPage]}
+          {pageComponent}
         </Content>
       </Game>
     </UI>

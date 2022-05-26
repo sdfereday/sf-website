@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 const zoom = 4;
 
-export const config = {
+export const systemConfig = {
   type: Phaser.AUTO,
   mode: Phaser.Scale.FIT,
   autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -22,13 +22,11 @@ export const config = {
   }
 };
 
-export const customConfig = {
+export const gameConfig = {
   moveSpeed: 70,
   jumpStrength: 160,
   sceneFadeDuration: 200
 };
-
-export const scenes = ["home", "about", "skills", "projects", "contact"];
 
 export const getWorldCenter = () => ({
   x: config.width / 2,
