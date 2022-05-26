@@ -15,7 +15,7 @@ import {
   PROJECTSINDEX,
   CONTACTKEY,
   CONTACTINDEX
-} from "./consts";
+} from "../system/consts";
 
 export const HOME = {
   key: HOMEKEY,

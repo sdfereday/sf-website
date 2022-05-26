@@ -17,13 +17,14 @@ process.env.NODE_ENV = "development";
 
 module.exports = {
   // Environment mode
-  mode: "production", //"development",
+  //mode: "production",
+  mode: "development",
 
   // Entry point of app
   entry: resolveAppPath("src"),
 
   output: {
-    path: `${__dirname}/public`,
+    path: `${__dirname}/dist`,
     filename: "main.js"
   },
 

@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 import React, { useEffect, useState } from "react";
 import { createStore } from "state-pool";
-import { systemConfig, gameConfig } from "./config";
-import { overlaps } from "./helpers";
+import { systemConfig, gameConfig } from "../system/config";
+import { overlaps } from "../system/helpers";
 import BootScene from "./scenes/Boot";
 import HomeScene from "./scenes/HomeScene";
 import AboutScene from "./scenes/AboutScene";
@@ -27,7 +27,7 @@ import {
   CONTACTINDEX,
   GAME_INSTANCE_KEY,
   GameEvents
-} from "./consts";
+} from "../system/consts";
 
 const GameShell = () => {
   const emitter = new Phaser.Events.EventEmitter();

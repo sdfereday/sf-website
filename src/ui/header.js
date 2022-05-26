@@ -5,7 +5,7 @@ import {
   SKILLSINDEX,
   PROJECTSINDEX,
   CONTACTINDEX
-} from "./consts";
+} from "../system/consts";
 
 export default ({ currentPage, onPageChanged = pageIndex => {} }) => {
   const [toggleMenu, setToggleMenu] = useState(false);

@@ -1,19 +1,19 @@
-import tiledMapJSONHome from "../assets/map-home.json";
-import tiledMapJSONAbout from "../assets/map-about.json";
-import tiledMapJSONExperience from "../assets/map-experience.json";
-import tiledMapJSONProjects from "../assets/map-projects.json";
-import tiledMapJSONContact from "../assets/map-contact.json";
-import tilesGraphic from "../assets/environment_tiles.png";
-import playerGraphic from "../assets/player.png";
-import doorwayGraphic from "../assets/doorway.png";
-import homeEntranceGraphic from "../assets/home_entrance.png";
-import aboutEntranceGraphic from "../assets/about_entrance.png";
-import experienceEntranceGraphic from "../assets/experience_entrance.png";
-import projectsEntranceGraphic from "../assets/projects_entrance.png";
-import contactEntranceGraphic from "../assets/contact_entrance.png";
-import bookstackGraphic from "../assets/bookstack.png";
-import exitGraphic from "../assets/exit.png";
-import interactGraphic from "../assets/interact.png";
+import tiledMapJSONHome from "../../assets/map-home.json";
+import tiledMapJSONAbout from "../../assets/map-about.json";
+import tiledMapJSONExperience from "../../assets/map-experience.json";
+import tiledMapJSONProjects from "../../assets/map-projects.json";
+import tiledMapJSONContact from "../../assets/map-contact.json";
+import tilesGraphic from "../../assets/environment_tiles.png";
+import playerGraphic from "../../assets/player.png";
+import doorwayGraphic from "../../assets/doorway.png";
+import homeEntranceGraphic from "../../assets/home_entrance.png";
+import aboutEntranceGraphic from "../../assets/about_entrance.png";
+import experienceEntranceGraphic from "../../assets/experience_entrance.png";
+import projectsEntranceGraphic from "../../assets/projects_entrance.png";
+import contactEntranceGraphic from "../../assets/contact_entrance.png";
+import bookstackGraphic from "../../assets/bookstack.png";
+import exitGraphic from "../../assets/exit.png";
+import interactGraphic from "../../assets/interact.png";
 import {
   BASE_TILES,
   PLAYER,
@@ -36,7 +36,7 @@ import {
   BOOKSTACK,
   INTERACT_ICON,
   InputEvents
-} from "../consts";
+} from "../../system/consts";
 
 export default ({
   sceneKey,

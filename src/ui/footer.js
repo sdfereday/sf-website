@@ -1,5 +1,5 @@
 import React from "react";
-import { LEFT, RIGHT } from "./consts";
+import { LEFT, RIGHT } from "../system/consts";
 import { Email } from "react-obfuscate-email";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

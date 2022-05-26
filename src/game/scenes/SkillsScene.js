@@ -1,12 +1,12 @@
 import Player from "../Player";
-import { generateStartPointFromTiles, prepareTileMap } from "../helpers";
+import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
 import {
-  CONTACT_ENTRANCE,
   DOORWAY,
   LEFT_START,
   RIGHT_START,
-  TILEMAP_CONTACT
-} from "../consts";
+  SKILLS_ENTRANCE,
+  TILEMAP_SKILLS
+} from "../../system/consts";
 
 export default ({
   sceneIndex,
@@ -18,7 +18,7 @@ export default ({
 
   function create() {
     // prepare tilemap for use in this scene
-    const { map, layers } = prepareTileMap(TILEMAP_CONTACT, this);
+    const { map, layers } = prepareTileMap(TILEMAP_SKILLS, this);
     const { positioning, ground } = layers;
 
     // set up start positioning
@@ -50,9 +50,12 @@ export default ({
     this.physics.add.collider(player, ground);
 
     // add map specific assets for this map
-    this.add.sprite(240, 100, CONTACT_ENTRANCE).setDepth(0);
+    this.add.sprite(240, 94, SKILLS_ENTRANCE).setDepth(0);
 
-    const rightDoorway = null;
+    const rightDoorway = this.add.sprite(0, 0, DOORWAY);
+    rightDoorway.x = rightStart.x;
+    rightDoorway.y = rightStart.y;
+    rightDoorway.setDepth(0);
 
     const leftDoorway = this.add.sprite(0, 0, DOORWAY);
     leftDoorway.x = leftStart.x;

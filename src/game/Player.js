@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { gameConfig } from "./config";
-import { PLAYER, EXIT, WALK, IDLE, FALL, JUMP, SINE_EASEINOUT } from "./consts";
+import { gameConfig } from "../system/config";
+import { PLAYER, EXIT, WALK, IDLE, FALL, JUMP, SINE_EASEINOUT } from "../system/consts";
 
 class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {

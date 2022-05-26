@@ -1,11 +1,11 @@
 import "./style.css";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { clamp } from "./helpers";
-import UI from "./ui";
-import Content from "./content";
-import Game from "./game";
-import Pages from "./page-data";
+import { clamp } from "./system/helpers";
+import UI from "./ui/ui";
+import Content from "./ui/content";
+import Game from "./game/game";
+import Pages from "./ui/page-data";
 
 const App = () => {
   /* UI Related */

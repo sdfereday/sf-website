@@ -1,12 +1,12 @@
 import Player from "../Player";
-import { generateStartPointFromTiles, prepareTileMap } from "../helpers";
+import { generateStartPointFromTiles, prepareTileMap } from "../../system/helpers";
 import {
   DOORWAY,
   HOME_ENTRANCE,
   LEFT_START,
   RIGHT_START,
   TILEMAP_HOME
-} from "../consts";
+} from "../../system/consts";
 
 export default ({
   sceneIndex,
