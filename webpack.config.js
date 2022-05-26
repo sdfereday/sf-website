@@ -17,14 +17,14 @@ process.env.NODE_ENV = "development";
 
 module.exports = {
   // Environment mode
-  mode: "development",
+  mode: "production", //"development",
 
   // Entry point of app
   entry: resolveAppPath("src"),
 
   output: {
-    // Development filename output
-    filename: "static/js/bundle.js"
+    path: `${__dirname}/public`,
+    filename: "main.js"
   },
 
   devServer: {
