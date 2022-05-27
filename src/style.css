@@ -51,11 +51,11 @@
     }
     canvas {
         @apply hidden;
-        @apply md:block;
+        @apply lg:block;
     }
     #instruction {
         @apply hidden;
-        @apply md:block;
+        @apply lg:block;
     }
 }
 
