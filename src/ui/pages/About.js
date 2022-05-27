@@ -22,9 +22,8 @@ export default () => {
             reading a book.
           </p>
           <p>
-            Always on the lookout for taking my knowledge and skills to the next
-            level, you'll find me looking for new challenges around every
-            corner.
+            I'm always on the lookout to advance my knowledge to the next
+            level.
           </p>
         </div>
       </div>
