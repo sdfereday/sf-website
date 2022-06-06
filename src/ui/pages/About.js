@@ -17,7 +17,7 @@ export default () => {
           </p>
           <p>
             Eager to learn and a passion for overcoming challenges and problem
-            solving. When I'm not writing code or being creative you'll find me
+            solving. When I'm not writing code or being creative you'll find me playing games (usually ones with swords),
             practicing martial arts, adventuring outdoors or sitting peacefully
             reading a book.
           </p>
