@@ -14,7 +14,7 @@ export default () => {
         <div class="grow">
           <h2>Who Am I?</h2>
           <p>
-            I'm a Front-End developer in the UK with a big interest in
+            I'm a front-end developer in the UK with a big interest in
             development be it on the web or in games to ultimately provide a
             great user experience.
           </p>
