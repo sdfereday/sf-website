@@ -89,6 +89,7 @@ export default () => {
                 <a
                   href="https://www.burnettdesign.co.uk/"
                   title="Burnett Design"
+                  target="_blank"
                 >
                   Burnett Design
                 </a>{" "}
