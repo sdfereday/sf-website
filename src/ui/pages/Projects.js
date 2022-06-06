@@ -84,9 +84,16 @@ export default () => {
               </a>
               <p className="text-base">
                 Custom WordPress site that makes use of relational data to link
-                content together. I worked on putting the templates together and
-                the backend functionality to perform searches plus general user
-                experience.
+                content together. I worked on putting the templates together
+                based on designs by{" "}
+                <a
+                  href="https://www.burnettdesign.co.uk/"
+                  title="Burnett Design"
+                >
+                  Burnett Design
+                </a>{" "}
+                and the backend functionality to perform searches plus general
+                user experience.
               </p>
             </div>
           </div>
