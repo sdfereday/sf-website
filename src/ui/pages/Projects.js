@@ -87,6 +87,7 @@ export default () => {
                 content together. I worked on putting the templates together
                 based on designs by{" "}
                 <a
+                  className="text-slate-500 hover:text-blue-200"
                   href="https://www.burnettdesign.co.uk/"
                   title="Burnett Design"
                   target="_blank"
