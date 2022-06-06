@@ -21,8 +21,9 @@ export default () => {
           <p>
             Eager to learn and have a passion for overcoming challenges and
             problem solving. When I'm not writing code or being creative you'll
-            find me playing games (usually ones with dragons &amp; swords), practicing martial
-            arts, adventuring outdoors or sitting peacefully reading a book.
+            find me playing games (usually ones with dragons &amp; swords or
+            materia), practicing martial arts, adventuring outdoors or sitting
+            peacefully reading a book.
           </p>
           <p>
             I'm always on the lookout to advance my knowledge to the next level.
