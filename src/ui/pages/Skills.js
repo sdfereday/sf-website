@@ -7,7 +7,7 @@ export default () => {
       <p>
         From humble beginnings I have moved forwards in to specializing with
         React. However over the years I've worked with numerous companies and
-        technologies with a focus on Front-End development.
+        technologies with a focus on front-end development.
       </p>
       <p>Some of the places I've worked at or with previously:</p>
       <a className="button inline-block hover:bg-blue-300" href="https://woodsandwalker.co.uk/" target="_blank">Woods &amp; Walker</a>
